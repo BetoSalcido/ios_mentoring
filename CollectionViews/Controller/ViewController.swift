@@ -10,6 +10,8 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet private var collectionView: UICollectionView!
+    @IBOutlet private var collectionViewB: UICollectionView!
+    @IBOutlet private var collectionViewC: UICollectionView!
     
     // Contenido a mostrar en el collectionView
     private let movies: [Movie] = {
@@ -35,9 +37,16 @@ private extension ViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         
+        collectionViewB.dataSource = self
+        collectionViewB.delegate = self
+        
+        collectionViewC.dataSource = self
+        collectionViewC.delegate = self
         // Una vez obtenido el contenido a mostrar en el collectionView.
         // Tenemos que decirle al collectionView que el contenido esta listo para mostrarse.
         collectionView.reloadData()
+        collectionViewB.reloadData()
+        collectionViewC.reloadData()
         
     }
 }
