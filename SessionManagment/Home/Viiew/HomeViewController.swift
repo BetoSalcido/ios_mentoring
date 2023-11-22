@@ -18,6 +18,10 @@ class HomeViewController: UIViewController {
         UserDefaults.standard.set(false, forKey: "isLogged")
         sceneDelegate.validateUserSession()
     }
-
 }
 
+
+// MARK: - StoryboardInitializable
+extension HomeViewController: StoryboardInitializable {
+    static let storyboardName = "Home"
+}

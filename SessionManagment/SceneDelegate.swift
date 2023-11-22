@@ -10,8 +10,11 @@ import UIKit
 @available(iOS 13.0, *)
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
+    private lazy var serviceProvider: AppServiceProvider = {
+        return AppServiceProvider()
+    }()
+    
     var window: UIWindow?
-
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -20,7 +23,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         validateUserSession()
-        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -68,9 +70,9 @@ extension SceneDelegate {
 private extension SceneDelegate {
     
     func runLoginView() {
-        guard let viewController = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController else {
-            return
-        }
+        let viewModel = LoginViewModel(serviceProvider: serviceProvider)
+        let viewController = LoginViewController.instantiate()
+        viewController.viewModel = viewModel
         
         let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.navigationBar.isHidden = true
@@ -79,13 +81,12 @@ private extension SceneDelegate {
     }
     
     func runHomeView() {
-        guard let viewController = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController else {
-            return
-        }
+        let homeViewController = HomeViewController.instantiate()
         
-        let navigationController = UINavigationController(rootViewController: viewController)
+        let navigationController = UINavigationController(rootViewController: homeViewController)
         navigationController.navigationBar.isHidden = true
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
 }
+

@@ -13,6 +13,11 @@
 		69253AA72B056ACA009A9661 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69253AA52B056ACA009A9661 /* Home.storyboard */; };
 		69253AA92B056ACB009A9661 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69253AA82B056ACB009A9661 /* Assets.xcassets */; };
 		69253AAC2B056ACB009A9661 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69253AAA2B056ACB009A9661 /* LaunchScreen.storyboard */; };
+		6954806F2B0E9582003611F7 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6954806E2B0E9582003611F7 /* LoginViewModel.swift */; };
+		695480712B0E958B003611F7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695480702B0E958B003611F7 /* HomeViewModel.swift */; };
+		695480752B0E9676003611F7 /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695480742B0E9676003611F7 /* ServiceProvider.swift */; };
+		695480782B0E96FF003611F7 /* AlersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695480772B0E96FF003611F7 /* AlersService.swift */; };
+		6954807B2B0E988F003611F7 /* StoryboardInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6954807A2B0E988F003611F7 /* StoryboardInitializable.swift */; };
 		69FFA98E2B056BB600671351 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FFA98D2B056BB600671351 /* LoginViewController.swift */; };
 		69FFA9902B056BC000671351 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69FFA98F2B056BC000671351 /* Login.storyboard */; };
 		69FFA9942B05733F00671351 /* UIViewController+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FFA9932B05733F00671351 /* UIViewController+App.swift */; };
@@ -27,6 +32,11 @@
 		69253AA82B056ACB009A9661 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		69253AAB2B056ACB009A9661 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		69253AAD2B056ACB009A9661 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6954806E2B0E9582003611F7 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		695480702B0E958B003611F7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		695480742B0E9676003611F7 /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
+		695480772B0E96FF003611F7 /* AlersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlersService.swift; sourceTree = "<group>"; };
+		6954807A2B0E988F003611F7 /* StoryboardInitializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardInitializable.swift; sourceTree = "<group>"; };
 		69FFA98D2B056BB600671351 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		69FFA98F2B056BC000671351 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		69FFA9932B05733F00671351 /* UIViewController+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+App.swift"; sourceTree = "<group>"; };
@@ -62,40 +72,125 @@
 		69253A9E2B056ACA009A9661 /* SessionManagment */ = {
 			isa = PBXGroup;
 			children = (
+				695480762B0E968F003611F7 /* Services */,
+				695480722B0E95C7003611F7 /* Resources */,
 				69FFA9912B05731B00671351 /* Common */,
-				69FFA98C2B056B9400671351 /* Controller */,
-				69FFA98B2B056B8E00671351 /* View */,
+				695480692B0E94FA003611F7 /* Home */,
+				695480652B0E94CA003611F7 /* Login */,
 				69253A9F2B056ACA009A9661 /* AppDelegate.swift */,
 				69253AA12B056ACA009A9661 /* SceneDelegate.swift */,
-				69253AA82B056ACB009A9661 /* Assets.xcassets */,
-				69253AAA2B056ACB009A9661 /* LaunchScreen.storyboard */,
 				69253AAD2B056ACB009A9661 /* Info.plist */,
 			);
 			path = SessionManagment;
 			sourceTree = "<group>";
 		};
-		69FFA98B2B056B8E00671351 /* View */ = {
+		695480652B0E94CA003611F7 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				69253AA52B056ACA009A9661 /* Home.storyboard */,
+				695480662B0E94D5003611F7 /* Model */,
+				695480672B0E94DC003611F7 /* View */,
+				695480682B0E94E1003611F7 /* ViewModel */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		695480662B0E94D5003611F7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		695480672B0E94DC003611F7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				69FFA98D2B056BB600671351 /* LoginViewController.swift */,
 				69FFA98F2B056BC000671351 /* Login.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		69FFA98C2B056B9400671351 /* Controller */ = {
+		695480682B0E94E1003611F7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6954806E2B0E9582003611F7 /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		695480692B0E94FA003611F7 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				6954806D2B0E951F003611F7 /* Model */,
+				6954806C2B0E9519003611F7 /* Viiew */,
+				6954806B2B0E9514003611F7 /* ViewModel */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		6954806B2B0E9514003611F7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				695480702B0E958B003611F7 /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		6954806C2B0E9519003611F7 /* Viiew */ = {
 			isa = PBXGroup;
 			children = (
 				69253AA32B056ACA009A9661 /* HomeViewController.swift */,
-				69FFA98D2B056BB600671351 /* LoginViewController.swift */,
+				69253AA52B056ACA009A9661 /* Home.storyboard */,
 			);
-			path = Controller;
+			path = Viiew;
+			sourceTree = "<group>";
+		};
+		6954806D2B0E951F003611F7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		695480722B0E95C7003611F7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				69253AA82B056ACB009A9661 /* Assets.xcassets */,
+				69253AAA2B056ACB009A9661 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		695480732B0E960B003611F7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				69FFA9932B05733F00671351 /* UIViewController+App.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		695480762B0E968F003611F7 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				695480742B0E9676003611F7 /* ServiceProvider.swift */,
+				695480772B0E96FF003611F7 /* AlersService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		695480792B0E9881003611F7 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				6954807A2B0E988F003611F7 /* StoryboardInitializable.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		69FFA9912B05731B00671351 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				69FFA9932B05733F00671351 /* UIViewController+App.swift */,
+				695480792B0E9881003611F7 /* Protocols */,
+				695480732B0E960B003611F7 /* Extensions */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -174,9 +269,14 @@
 			files = (
 				69FFA98E2B056BB600671351 /* LoginViewController.swift in Sources */,
 				69253AA42B056ACA009A9661 /* HomeViewController.swift in Sources */,
+				695480712B0E958B003611F7 /* HomeViewModel.swift in Sources */,
+				6954806F2B0E9582003611F7 /* LoginViewModel.swift in Sources */,
+				695480752B0E9676003611F7 /* ServiceProvider.swift in Sources */,
 				69FFA9942B05733F00671351 /* UIViewController+App.swift in Sources */,
+				6954807B2B0E988F003611F7 /* StoryboardInitializable.swift in Sources */,
 				69253AA02B056ACA009A9661 /* AppDelegate.swift in Sources */,
 				69253AA22B056ACA009A9661 /* SceneDelegate.swift in Sources */,
+				695480782B0E96FF003611F7 /* AlersService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
