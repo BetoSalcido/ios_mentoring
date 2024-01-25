@@ -58,7 +58,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 extension SceneDelegate {
     
     func validateUserSession() {
-        if UserDefaults.standard.bool(forKey: "isLogged") {
+         if UserDefaults.standard.bool(forKey: "isLogged") {
             runHomeView()
         } else {
             runLoginView()

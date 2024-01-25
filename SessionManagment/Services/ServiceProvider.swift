@@ -12,11 +12,18 @@ protocol ServiceProvider {
     
     /// Manages the alerts views
     var alertsService: AlertsService { get }
+    
+    /// Manages the HTTP request
+    var networkingService: NetworkingService { get }
 }
 
 class AppServiceProvider: ServiceProvider {
     
     lazy var alertsService: AlertsService = {
         return AlertsService()
+    }()
+    
+    lazy var networkingService: NetworkingService = {
+        return NetworkingService()
     }()
 }

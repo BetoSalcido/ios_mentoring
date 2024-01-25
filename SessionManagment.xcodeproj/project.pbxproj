@@ -18,6 +18,10 @@
 		695480752B0E9676003611F7 /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695480742B0E9676003611F7 /* ServiceProvider.swift */; };
 		695480782B0E96FF003611F7 /* AlersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695480772B0E96FF003611F7 /* AlersService.swift */; };
 		6954807B2B0E988F003611F7 /* StoryboardInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6954807A2B0E988F003611F7 /* StoryboardInitializable.swift */; };
+		6954807D2B0E9F56003611F7 /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6954807C2B0E9F56003611F7 /* NetworkingService.swift */; };
+		6954807F2B0E9F7D003611F7 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6954807E2B0E9F7D003611F7 /* Credentials.swift */; };
+		6969214B2B61D5CE0026ACE6 /* CombineTypeAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6969214A2B61D5CE0026ACE6 /* CombineTypeAliases.swift */; };
+		6969214D2B61D6270026ACE6 /* Publisher+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6969214C2B61D6270026ACE6 /* Publisher+App.swift */; };
 		69FFA98E2B056BB600671351 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FFA98D2B056BB600671351 /* LoginViewController.swift */; };
 		69FFA9902B056BC000671351 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69FFA98F2B056BC000671351 /* Login.storyboard */; };
 		69FFA9942B05733F00671351 /* UIViewController+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FFA9932B05733F00671351 /* UIViewController+App.swift */; };
@@ -37,6 +41,10 @@
 		695480742B0E9676003611F7 /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
 		695480772B0E96FF003611F7 /* AlersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlersService.swift; sourceTree = "<group>"; };
 		6954807A2B0E988F003611F7 /* StoryboardInitializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardInitializable.swift; sourceTree = "<group>"; };
+		6954807C2B0E9F56003611F7 /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
+		6954807E2B0E9F7D003611F7 /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
+		6969214A2B61D5CE0026ACE6 /* CombineTypeAliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineTypeAliases.swift; sourceTree = "<group>"; };
+		6969214C2B61D6270026ACE6 /* Publisher+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+App.swift"; sourceTree = "<group>"; };
 		69FFA98D2B056BB600671351 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		69FFA98F2B056BC000671351 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		69FFA9932B05733F00671351 /* UIViewController+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+App.swift"; sourceTree = "<group>"; };
@@ -97,6 +105,7 @@
 		695480662B0E94D5003611F7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6954807E2B0E9F7D003611F7 /* Credentials.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -165,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				69FFA9932B05733F00671351 /* UIViewController+App.swift */,
+				6969214C2B61D6270026ACE6 /* Publisher+App.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -174,6 +184,7 @@
 			children = (
 				695480742B0E9676003611F7 /* ServiceProvider.swift */,
 				695480772B0E96FF003611F7 /* AlersService.swift */,
+				6954807C2B0E9F56003611F7 /* NetworkingService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -186,9 +197,18 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		696921492B61D5BC0026ACE6 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				6969214A2B61D5CE0026ACE6 /* CombineTypeAliases.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		69FFA9912B05731B00671351 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				696921492B61D5BC0026ACE6 /* Utils */,
 				695480792B0E9881003611F7 /* Protocols */,
 				695480732B0E960B003611F7 /* Extensions */,
 			);
@@ -273,10 +293,14 @@
 				6954806F2B0E9582003611F7 /* LoginViewModel.swift in Sources */,
 				695480752B0E9676003611F7 /* ServiceProvider.swift in Sources */,
 				69FFA9942B05733F00671351 /* UIViewController+App.swift in Sources */,
+				6954807F2B0E9F7D003611F7 /* Credentials.swift in Sources */,
 				6954807B2B0E988F003611F7 /* StoryboardInitializable.swift in Sources */,
 				69253AA02B056ACA009A9661 /* AppDelegate.swift in Sources */,
+				6954807D2B0E9F56003611F7 /* NetworkingService.swift in Sources */,
 				69253AA22B056ACA009A9661 /* SceneDelegate.swift in Sources */,
 				695480782B0E96FF003611F7 /* AlersService.swift in Sources */,
+				6969214D2B61D6270026ACE6 /* Publisher+App.swift in Sources */,
+				6969214B2B61D5CE0026ACE6 /* CombineTypeAliases.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
