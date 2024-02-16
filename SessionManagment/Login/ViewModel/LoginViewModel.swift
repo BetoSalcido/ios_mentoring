@@ -9,6 +9,9 @@ import Foundation
 
 protocol LoginViewModelDelegate: AnyObject {
     func viewModel(_ viewModel: LoginViewModel, didRequestAlertWith alert: Alert)
+    func viewModelSuccessfulSession(_ viewModel: LoginViewModel)
+    func viewModelDisplayLoadingView(_ viewModel: LoginViewModel)
+    func viewModelRemoveLoadingView(_ viewModel: LoginViewModel)
 }
 
 class LoginViewModel {
@@ -27,7 +30,6 @@ class LoginViewModel {
     
     init(serviceProvider: ServiceProvider) {
         self.serviceProvider = serviceProvider
-        performLogin()
     }
 }
 
@@ -35,18 +37,28 @@ class LoginViewModel {
 private extension LoginViewModel {
     
     func performLogin() {
-        let credentials = Credentials(user: "ls0523", password: "12345")
-        networkingService.performLogin(with: credentials) { result in
+        delegate?.viewModelDisplayLoadingView(self)
+        let credentials = Credentials(user: username, password: password)
+        networkingService.performLogin(with: credentials) { [weak self]  result in
+            guard let self else { return }
+            self.delegate?.viewModelRemoveLoadingView(self)
             if result {
-                print("El inicio sesión fue exitoso")
+                UserDefaults.standard.setValue(true, forKey: "isLogged")
+                self.delegate?.viewModelSuccessfulSession(self)
             } else {
-                print("Error en las credenciales.")
+                self.displayErrorAlert()
             }
         }
     }
     
     func validateForm() {
-        isPerformLoginButtonEnabled = username.count > 5 && password.count > 5
+        isPerformLoginButtonEnabled = username.count >= 5 && password.count >= 5
+    }
+    
+    func displayErrorAlert() {
+        let acceptAction = Alert.Action(title: "Aceptar", style: .default)
+        let alert = Alert(titleKey: "Lo Sentimos", messageKey: "Los datos ingresados no son correctos.", acceptAction: acceptAction, cancelAction: nil)
+        delegate?.viewModel(self, didRequestAlertWith: alert)
     }
 }
 
@@ -65,9 +77,7 @@ extension LoginViewModel {
     
     func handlePerformButtonSelection() {
         if isPerformLoginButtonEnabled {
-            let acceptAction = Alert.Action(title: "Aceptar", style: .default)
-            let alert = Alert(titleKey: "Lo Sentimos", messageKey: "Los datos ingresados no son correctos.", acceptAction: acceptAction, cancelAction: nil)
-            delegate?.viewModel(self, didRequestAlertWith: alert)
+            performLogin()
         }
     }
 }

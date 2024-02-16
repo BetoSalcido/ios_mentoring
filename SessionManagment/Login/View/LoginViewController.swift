@@ -8,11 +8,12 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-
+    
     @IBOutlet private var performLoginButton: UIButton!
     @IBOutlet private var usernameTextField: UITextField!
     @IBOutlet private var passwordTextField: UITextField!
     
+    private lazy var animationViewController = AnimationViewController()
     private var bindings = Bindings()
     var viewModel: LoginViewModel! {
         didSet {
@@ -22,7 +23,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         /// Validation to make sure that the viewModel is added to the viewController.
         guard viewModel != nil else {
             assertionFailure("`viewModel` is required for \(Self.self) to work.")
@@ -41,14 +42,38 @@ private extension LoginViewController {
             .assign(to: \.isEnabled, on: performLoginButton)
             .store(in: &bindings)
     }
+    
+    func displayAnimation() {
+        UIView.animate(withDuration: 0.6, animations: { [weak self] in
+            guard let self else { return }
+            self.animationViewController.view.alpha = 1.0
+        }) { [weak self] _ in
+            guard let self else { return }
+            addChild(self.animationViewController)
+            view.addSubview(self.animationViewController.view)
+            self.animationViewController.didMove(toParent: self)
+        }
+    }
+    
+    func removeAnimation() {
+        UIView.animate(withDuration: 0.6, animations: { [weak self] in
+            guard let self else { return }
+            self.animationViewController.view.alpha = 0.0
+        }) { [weak self] _ in
+            guard let self else { return }
+            self.animationViewController.willMove(toParent: nil)
+            self.animationViewController.view.removeFromSuperview()
+            self.animationViewController.removeFromParent()
+        }
+    }
 }
 
 // MARK: - Action Methods
 private extension LoginViewController {
     
     @IBAction func didTapPerformButton(_ sender: Any) {
-//        UserDefaults.standard.set(true, forKey: "isLogged")
-//        sceneDelegate.validateUserSession()
+        //        UserDefaults.standard.set(true, forKey: "isLogged")
+        //        sceneDelegate.validateUserSession()
         viewModel.handlePerformButtonSelection()
     }
     
@@ -76,6 +101,18 @@ private extension LoginViewController {
 
 // MARK: - LoginViewModelDelegate
 extension LoginViewController: LoginViewModelDelegate {
+    
+    func viewModelRemoveLoadingView(_ viewModel: LoginViewModel) {
+        removeAnimation()
+    }
+    
+    func viewModelDisplayLoadingView(_ viewModel: LoginViewModel) {
+        displayAnimation()
+    }
+    
+    func viewModelSuccessfulSession(_ viewModel: LoginViewModel) {
+        sceneDelegate.validateUserSession()
+    }
     
     func viewModel(_ viewModel: LoginViewModel, didRequestAlertWith alert: Alert) {
         self.viewModel.alertService.runAlert(on: self, alert: alert)

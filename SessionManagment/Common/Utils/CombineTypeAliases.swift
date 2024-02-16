@@ -8,3 +8,4 @@
 import Combine
 
 typealias Bindings = Set<AnyCancellable>
+typealias Command<T> = PassthroughSubject<T, Never>
