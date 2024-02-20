@@ -54,9 +54,10 @@ private extension HomeViewModel {
             Category(id: "4", title: "Adventure")
         ]
         let categoryCellViewModel = CategoriesCellViewModel(serviceProvider: serviceProvider, categories: categories)
-        let categorySection = Section(title: "", buttonTitle: "", cellViewModel: categoryCellViewModel)
+        let categorySection = Section(title: "Filters", buttonTitle: "", cellViewModel: categoryCellViewModel)
         
-        let popularSection = Section(title: "Popular", buttonTitle: "See All", cellViewModel: <#T##CellViewModel#>)
+        let popularCellViewModel = ToursCellViewModel(serviceProvider: serviceProvider, tours: Tour.tours)
+        let popularSection = Section(title: "Popular", buttonTitle: "See All", cellViewModel: popularCellViewModel)
         
         sections.append(categorySection)
         sections.append(popularSection)
@@ -78,6 +79,19 @@ extension HomeViewModel {
         }
         
         return sections[indexSection].cellViewModel
+    }
+    
+    func cellViewModelSize(at indexPath: IndexPath) -> Double {
+        let indexSection = indexPath.section
+        guard sections.indices.contains(indexSection) else {
+            return 0.0
+        }
+        
+        if sections[indexSection].title == "Filters" {
+            return 74.0
+        } else {
+            return 274.0
+        }
     }
 }
 

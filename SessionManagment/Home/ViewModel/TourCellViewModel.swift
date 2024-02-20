@@ -18,9 +18,14 @@ class TourCellViewModel {
     /// Binding
     @Published private(set) var title: String?
     
+    private let serviceProvider: ServiceProvider
+    private let tour: Tour
     weak var delegate: TourCellViewModelDelegate?
     
-    init() {
+    init(serviceProvider: ServiceProvider,
+         tour: Tour) {
+        self.serviceProvider = serviceProvider
+        self.tour = tour
         applyBindings()
     }
 }

@@ -42,8 +42,12 @@ private extension HomeViewController {
 // MARK: - UICollectionViewDataSource
 extension HomeViewController: UICollectionViewDataSource {
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return viewModel.totalSections
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -58,21 +62,30 @@ extension HomeViewController: UICollectionViewDataSource {
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let cellViewModel = viewModel.cellViewModel(at: indexPath) else {
-            return
-        }
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellViewModel.cellIdentifier, for: indexPath)
-        if let configurable = cell as? CellViewModelConfigurable {
-            configurable.configureWillDisplayCell(cellViewModel: cellViewModel)
-        }
-    }
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        guard let cellViewModel = viewModel.cellViewModel(at: indexPath) else {
+//            return
+//        }
+//        
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellViewModel.cellIdentifier, for: indexPath)
+//        if let configurable = cell as? CellViewModelConfigurable {
+//            configurable.configureWillDisplayCell(cellViewModel: cellViewModel)
+//        }
+//    }
 }
 
 // MARK: - UICollectionViewDelegate
 extension HomeViewController: UICollectionViewDelegate {
     // Nothing to do yet
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellViewModelSize = viewModel.cellViewModelSize(at: indexPath)
+        return CGSize(width: view.frame.width, height: cellViewModelSize)
+    }
 }
 
 // MARK: - StoryboardInitializable

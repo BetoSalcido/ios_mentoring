@@ -16,10 +16,14 @@ protocol ToursCellViewModelDelegate: AnyObject {
 class ToursCellViewModel {
     
     /// Binding
-    @Published private(set) var title: String?
+    @Published private(set) var titleText: String?
+    @Published private(set) var buttonText: String?
     
     private let serviceProvider: ServiceProvider
+    private var cellViewModels = [TourCellViewModel]()
     private let tours: [Tour]
+    
+    let reloadData = Command<Void>()
     
     weak var delegate: ToursCellViewModelDelegate?
     
@@ -28,6 +32,7 @@ class ToursCellViewModel {
         self.serviceProvider = serviceProvider
         self.tours = tours
         applyBindings()
+        generateCellViewModels()
     }
 }
 
@@ -35,8 +40,41 @@ class ToursCellViewModel {
 private extension ToursCellViewModel {
     
     func applyBindings() {
-        // Nothing to do yet.
+        titleText = "Popular"
+        buttonText = "See All"
     }
+    
+    func generateCellViewModels() {
+        cellViewModels = tours.map({
+            let cellViewModel = TourCellViewModel(serviceProvider: serviceProvider, tour: $0)
+            cellViewModel.delegate = self
+            return cellViewModel
+        })
+        
+        reloadData.send()
+    }
+}
+
+// MaRK: - Public Methods
+extension ToursCellViewModel {
+    
+    var totalCellViewModels: Int {
+        return cellViewModels.count
+    }
+    
+    func cellViewModel(at indexPath: IndexPath) -> TourCellViewModel? {
+        let indexRow = indexPath.row
+        guard cellViewModels.indices.contains(indexRow) else {
+            return nil
+        }
+        
+        return cellViewModels[indexRow]
+    }
+}
+
+// MARK: - TourCellViewModelDelegate
+extension ToursCellViewModel: TourCellViewModelDelegate {
+    // Nothing to do yet.
 }
 
 // MARK: - CellViewModel

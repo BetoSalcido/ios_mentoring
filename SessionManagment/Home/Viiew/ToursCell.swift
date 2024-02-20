@@ -28,6 +28,41 @@ class ToursCell: UICollectionViewCell {
     
 }
 
+// MARK: - UICollectionViewDataSource
+extension ToursCell: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.totalCellViewModels
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cellViewModel = viewModel.cellViewModel(at: indexPath) else {
+            return UICollectionViewCell()
+        }
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellViewModel.cellIdentifier, for: indexPath)
+        if let configurable = cell as? CellViewModelConfigurable {
+            configurable.configure(cellViewModel: cellViewModel)
+        }
+        return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension ToursCell: UICollectionViewDelegate {
+    
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension ToursCell: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        return CGSize(width: 156, height: 213)
+    }
+}
+
+
 // MARK: - CellViewModelConfigurable
 extension ToursCell: CellViewModelConfigurable {
     
@@ -39,8 +74,21 @@ extension ToursCell: CellViewModelConfigurable {
         self.viewModel = cellViewModel;
         bindings.removeAll()
         
-//        viewModel.$<#BindingName#>
-//            .assign(to: \.text, on: <#LabelName#>)
-//            .store(in: &bindings)
+        viewModel.$titleText
+            .assign(to: \.text, on: titleLabel)
+            .store(in: &bindings)
+        
+        viewModel.$buttonText
+            .sink { [seeAllButton]  in
+                seeAllButton?.setTitle($0, for: .normal)
+            }
+            .store(in: &bindings)
+        
+        viewModel.reloadData
+            .sink { [collectionView]  in
+                collectionView?.reloadData()
+            }
+            .store(in: &bindings)
+        
     }
 }
