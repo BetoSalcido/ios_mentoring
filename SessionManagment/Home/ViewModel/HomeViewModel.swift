@@ -59,8 +59,12 @@ private extension HomeViewModel {
         let popularCellViewModel = ToursCellViewModel(serviceProvider: serviceProvider, tours: Tour.tours)
         let popularSection = Section(title: "Popular", buttonTitle: "See All", cellViewModel: popularCellViewModel)
         
+        let recommendedViewModel = RecommendationsCellViewModel(serviceProvider: serviceProvider, tours: Tour.tours)
+        let recommendedSection = Section(title: "Recommended", buttonTitle: "", cellViewModel: recommendedViewModel)
+        
         sections.append(categorySection)
         sections.append(popularSection)
+        sections.append(recommendedSection)
         reloadData.send()
     }
 }
@@ -89,6 +93,8 @@ extension HomeViewModel {
         
         if sections[indexSection].title == "Filters" {
             return 74.0
+        } else if sections[indexSection].title == "Recommended" {
+            return 204
         } else {
             return 274.0
         }
