@@ -51,8 +51,13 @@ extension TourCell: CellViewModelConfigurable {
         self.viewModel = cellViewModel;
         bindings.removeAll()
         
-//        viewModel.$<#BindingName#>
-//            .assign(to: \.text, on: <#LabelName#>)
-//            .store(in: &bindings)
+        viewModel.$titleText
+            .assign(to: \.text, on: titleLabel)
+            .store(in: &bindings)
+        
+        viewModel.$reviewText
+            .assign(to: \.text, on: reviewLabel)
+            .store(in: &bindings)
+        
     }
 }

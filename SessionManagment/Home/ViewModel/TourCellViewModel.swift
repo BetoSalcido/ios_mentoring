@@ -16,7 +16,8 @@ protocol TourCellViewModelDelegate: AnyObject {
 class TourCellViewModel {
     
     /// Binding
-    @Published private(set) var title: String?
+    @Published private(set) var titleText: String?
+    @Published private(set) var reviewText: String?
     
     private let serviceProvider: ServiceProvider
     private let tour: Tour
@@ -34,7 +35,8 @@ class TourCellViewModel {
 private extension TourCellViewModel {
     
     func applyBindings() {
-        // Nothing to do yet.
+        titleText = tour.name
+        reviewText = "\(tour.reviews)"
     }
 }
 
