@@ -12,7 +12,12 @@ class HomeViewController: UIViewController {
     @IBOutlet private var collectionView: UICollectionView!
     
     private var bindings = Bindings()
-    var viewModel: HomeViewModel!
+    
+    var viewModel: HomeViewModel! {
+        didSet {
+            viewModel.delegate = self
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +41,13 @@ private extension HomeViewController {
                 collectionView?.reloadData()
             }
             .store(in: &bindings)
+    }
+    
+    func runTourDetail(with  tour: Tour) {
+        let viewModel = TourDetailViewModel()
+        let viewController = TourDetailViewController.instantiate()
+        viewController.viewModel = viewModel
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
@@ -76,7 +88,7 @@ extension HomeViewController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegate
 extension HomeViewController: UICollectionViewDelegate {
-    // Nothing to do yet
+    // Nothing to do yet.
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -85,6 +97,14 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellViewModelSize = viewModel.cellViewModelSize(at: indexPath)
         return CGSize(width: view.frame.width, height: cellViewModelSize)
+    }
+}
+
+// MARK: - HomeViewModelDelegate
+extension HomeViewController: HomeViewModelDelegate {
+    
+    func viewModel(_ viewModel: HomeViewModel, didSelectTour tour: Tour) {
+        runTourDetail(with: tour)
     }
 }
 

@@ -38,6 +38,9 @@
 		698AE5752B6B19CF00BCF503 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 698AE5742B6B19CF00BCF503 /* Lottie */; };
 		698AE5782B6B1B7D00BCF503 /* Loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 698AE5772B6B1B7D00BCF503 /* Loading.json */; };
 		698AE57B2B6B1BB200BCF503 /* AnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698AE57A2B6B1BB200BCF503 /* AnimationViewController.swift */; };
+		69983E7B2B8669470051AE72 /* TourDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69983E7A2B8669470051AE72 /* TourDetail.storyboard */; };
+		69983E7D2B8669530051AE72 /* TourDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69983E7C2B8669530051AE72 /* TourDetailViewModel.swift */; };
+		69983E7F2B8669610051AE72 /* TourDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69983E7E2B8669610051AE72 /* TourDetailViewController.swift */; };
 		69D8D05B2B7BD10F00328477 /* UIColor+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D8D05A2B7BD10F00328477 /* UIColor+App.swift */; };
 		69D8D05D2B7BD28000328477 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D8D05C2B7BD28000328477 /* CategoryCell.swift */; };
 		69D8D05F2B7BD29100328477 /* CategoryCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D8D05E2B7BD29100328477 /* CategoryCellViewModel.swift */; };
@@ -84,6 +87,9 @@
 		6969D89C2B865C1C000A97D8 /* RecommendedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedCell.swift; sourceTree = "<group>"; };
 		698AE5772B6B1B7D00BCF503 /* Loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Loading.json; sourceTree = "<group>"; };
 		698AE57A2B6B1BB200BCF503 /* AnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationViewController.swift; sourceTree = "<group>"; };
+		69983E7A2B8669470051AE72 /* TourDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TourDetail.storyboard; sourceTree = "<group>"; };
+		69983E7C2B8669530051AE72 /* TourDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourDetailViewModel.swift; sourceTree = "<group>"; };
+		69983E7E2B8669610051AE72 /* TourDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourDetailViewController.swift; sourceTree = "<group>"; };
 		69D8D05A2B7BD10F00328477 /* UIColor+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+App.swift"; sourceTree = "<group>"; };
 		69D8D05C2B7BD28000328477 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		69D8D05E2B7BD29100328477 /* CategoryCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCellViewModel.swift; sourceTree = "<group>"; };
@@ -128,6 +134,7 @@
 		69253A9E2B056ACA009A9661 /* SessionManagment */ = {
 			isa = PBXGroup;
 			children = (
+				69983E762B86692A0051AE72 /* TourDetail */,
 				695BE9022B73F679007093B9 /* Onbording */,
 				698AE5792B6B1B8C00BCF503 /* Animation */,
 				695480762B0E968F003611F7 /* Services */,
@@ -316,6 +323,40 @@
 			path = Animation;
 			sourceTree = "<group>";
 		};
+		69983E762B86692A0051AE72 /* TourDetail */ = {
+			isa = PBXGroup;
+			children = (
+				69983E792B86693D0051AE72 /* Model */,
+				69983E782B8669380051AE72 /* View */,
+				69983E772B8669310051AE72 /* ViewModel */,
+			);
+			path = TourDetail;
+			sourceTree = "<group>";
+		};
+		69983E772B8669310051AE72 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				69983E7C2B8669530051AE72 /* TourDetailViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		69983E782B8669380051AE72 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				69983E7A2B8669470051AE72 /* TourDetail.storyboard */,
+				69983E7E2B8669610051AE72 /* TourDetailViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		69983E792B86693D0051AE72 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		69FFA9912B05731B00671351 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -393,6 +434,7 @@
 				69FFA9902B056BC000671351 /* Login.storyboard in Resources */,
 				69253AAC2B056ACB009A9661 /* LaunchScreen.storyboard in Resources */,
 				69253AA92B056ACB009A9661 /* Assets.xcassets in Resources */,
+				69983E7B2B8669470051AE72 /* TourDetail.storyboard in Resources */,
 				695BE9062B73F6DF007093B9 /* Onboarding.storyboard in Resources */,
 				69253AA72B056ACA009A9661 /* Home.storyboard in Resources */,
 				698AE5782B6B1B7D00BCF503 /* Loading.json in Resources */,
@@ -411,9 +453,11 @@
 				695BE9012B73E8A2007093B9 /* TabBarController.swift in Sources */,
 				69253AA42B056ACA009A9661 /* HomeViewController.swift in Sources */,
 				6952D48F2B7FF7C900DA5728 /* TourCellViewModel.swift in Sources */,
+				69983E7D2B8669530051AE72 /* TourDetailViewModel.swift in Sources */,
 				695BE9082B73F6EE007093B9 /* OnboardingViewController.swift in Sources */,
 				6969D89D2B865C1C000A97D8 /* RecommendedCell.swift in Sources */,
 				695480712B0E958B003611F7 /* HomeViewModel.swift in Sources */,
+				69983E7F2B8669610051AE72 /* TourDetailViewController.swift in Sources */,
 				6952D4912B7FF85100DA5728 /* ToursCell.swift in Sources */,
 				6969D89B2B865C0E000A97D8 /* RecommendationsCell.swift in Sources */,
 				6969D8972B865BE4000A97D8 /* RecommendedCellViewModel.swift in Sources */,

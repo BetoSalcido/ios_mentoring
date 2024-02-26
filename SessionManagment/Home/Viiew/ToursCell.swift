@@ -51,6 +51,13 @@ extension ToursCell: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension ToursCell: UICollectionViewDelegate {
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cellViewModel = viewModel.cellViewModel(at: indexPath) else {
+            return
+        }
+        
+        cellViewModel.handleSelection()
+    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout

@@ -10,7 +10,7 @@ import Combine
 import UIKit
 
 protocol ToursCellViewModelDelegate: AnyObject {
-    // Nothing to do yet.
+    func viewModel(_ viewModel: ToursCellViewModel, didSelectTour tour: Tour)
 }
 
 class ToursCellViewModel {
@@ -74,7 +74,10 @@ extension ToursCellViewModel {
 
 // MARK: - TourCellViewModelDelegate
 extension ToursCellViewModel: TourCellViewModelDelegate {
-    // Nothing to do yet.
+    
+    func viewModel(_ viewModel: TourCellViewModel, didSelectTour tour: Tour) {
+        delegate?.viewModel(self, didSelectTour: tour)
+    }
 }
 
 // MARK: - CellViewModel

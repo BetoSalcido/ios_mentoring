@@ -8,7 +8,7 @@
 import Foundation
  
 protocol HomeViewModelDelegate: AnyObject {
-    // Nothing to do
+    func viewModel(_ viewModel: HomeViewModel, didSelectTour tour: Tour)
 }
 
 class HomeViewModel {
@@ -57,6 +57,7 @@ private extension HomeViewModel {
         let categorySection = Section(title: "Filters", buttonTitle: "", cellViewModel: categoryCellViewModel)
         
         let popularCellViewModel = ToursCellViewModel(serviceProvider: serviceProvider, tours: Tour.tours)
+        popularCellViewModel.delegate = self
         let popularSection = Section(title: "Popular", buttonTitle: "See All", cellViewModel: popularCellViewModel)
         
         let recommendedViewModel = RecommendationsCellViewModel(serviceProvider: serviceProvider, tours: Tour.tours)
@@ -98,6 +99,14 @@ extension HomeViewModel {
         } else {
             return 274.0
         }
+    }
+}
+
+// MARK: - ToursCellViewModelDelegate
+extension HomeViewModel: ToursCellViewModelDelegate {
+    
+    func viewModel(_ viewModel: ToursCellViewModel, didSelectTour tour: Tour) {
+        delegate?.viewModel(self, didSelectTour: tour)
     }
 }
 

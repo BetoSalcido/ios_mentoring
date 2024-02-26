@@ -10,7 +10,7 @@ import Combine
 import UIKit
 
 protocol TourCellViewModelDelegate: AnyObject {
-    // Nothing to do yet.
+    func viewModel(_ viewModel: TourCellViewModel, didSelectTour tour: Tour)
 }
 
 class TourCellViewModel {
@@ -37,6 +37,14 @@ private extension TourCellViewModel {
     func applyBindings() {
         titleText = tour.name
         reviewText = "\(tour.reviews)"
+    }
+}
+
+// MARK: - Handler Methods
+extension TourCellViewModel {
+    
+    func handleSelection() {
+        delegate?.viewModel(self, didSelectTour: tour)
     }
 }
 
