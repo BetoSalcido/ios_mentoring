@@ -16,6 +16,12 @@ class TourDetailViewController: UIViewController {
     @IBOutlet private var favoriteButton: UIButton!
     @IBOutlet private var favoriteImage: UIImageView!
     @IBOutlet private var favoriteView: UIView!
+    @IBOutlet private var readMoreButton: UIButton!
+    @IBOutlet private var descriptionLabel: UILabel!
+    @IBOutlet private var internetView: UIView!
+    @IBOutlet private var dinnerView: UIView!
+    @IBOutlet private var tubView: UIView!
+    @IBOutlet private var poolView: UIView!
     
     private var bindings = Bindings()
     
@@ -43,6 +49,8 @@ class TourDetailViewController: UIViewController {
 private extension TourDetailViewController {
     
     func configureView() {
+        readMoreButton.semanticContentAttribute = .forceRightToLeft
+        
         bookButton.semanticContentAttribute = .forceRightToLeft
         bookButton.layer.cornerRadius = 10
         
@@ -50,10 +58,24 @@ private extension TourDetailViewController {
         
         favoriteView.layer.cornerRadius = favoriteView.frame.width / 2
         favoriteView.clipsToBounds = true
+        
+        internetView.layer.cornerRadius = 15
+        dinnerView.layer.cornerRadius = 15
+        tubView.layer.cornerRadius = 15
+        poolView.layer.cornerRadius = 15
+        
     }
     
     func configureBindings() {
+        viewModel.$descriptionText
+            .assign(to: \.text, on: descriptionLabel)
+            .store(in: &bindings)
         
+        viewModel.$descriptionNumberOfLines
+            .sink { [descriptionLabel] in
+                descriptionLabel?.numberOfLines = $0 ?? 4
+            }
+            .store(in: &bindings)
     }
 }
 
@@ -66,6 +88,10 @@ private extension TourDetailViewController {
     
     @IBAction func didTapBackButton(_ sender: Any) {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func didTapReadMoreButton(_ sender: Any) {
+        viewModel.handleReadMoreSelection()
     }
 }
 
