@@ -31,7 +31,7 @@ class HomeViewModel {
     /// Bindings
     @Published private(set) var title: String?
     
-    private let serviceProvider: ServiceProvider
+    private(set) var serviceProvider: ServiceProvider
     private var sections = [Section]()
     let reloadData = Command<Void>()
     
@@ -63,9 +63,13 @@ private extension HomeViewModel {
         let recommendedViewModel = RecommendationsCellViewModel(serviceProvider: serviceProvider, tours: Tour.tours)
         let recommendedSection = Section(title: "Recommended", buttonTitle: "", cellViewModel: recommendedViewModel)
         
+        let tomorrowViewModel = RecommendationsCellViewModel(serviceProvider: serviceProvider, tours: Tour.tours)
+        let tomorrowSectionSection = Section(title: "Recommended", buttonTitle: "", cellViewModel: tomorrowViewModel)
+        
         sections.append(categorySection)
         sections.append(popularSection)
         sections.append(recommendedSection)
+        sections.append(tomorrowSectionSection)
         reloadData.send()
     }
 }

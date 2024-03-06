@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Tour {
+struct Tour: Codable {
     let id: String
     let name: String
     let shortDescription: String

@@ -80,6 +80,9 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain"/>
+                                                                <connections>
+                                                                    <action selector="didTapFavoriteButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="UvS-Lu-WcY"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -352,9 +355,7 @@
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="imV-Xz-j0c" firstAttribute="height" secondItem="Qwe-UH-fri" secondAttribute="height" constant="-50" id="O71-SJ-BAe"/>
-                                    <constraint firstAttribute="bottom" secondItem="imV-Xz-j0c" secondAttribute="bottom" constant="50" id="OQ6-9B-4Ec"/>
-                                    <constraint firstItem="imV-Xz-j0c" firstAttribute="bottom" secondItem="wVu-Ag-c3U" secondAttribute="bottom" constant="-50" id="QeB-Ax-JxN"/>
+                                    <constraint firstItem="imV-Xz-j0c" firstAttribute="bottom" secondItem="Qwe-UH-fri" secondAttribute="bottom" id="QeB-Ax-JxN"/>
                                     <constraint firstAttribute="trailing" secondItem="imV-Xz-j0c" secondAttribute="trailing" id="Rll-3x-fND"/>
                                     <constraint firstItem="imV-Xz-j0c" firstAttribute="leading" secondItem="Qwe-UH-fri" secondAttribute="leading" id="ahK-ZC-gnB"/>
                                     <constraint firstItem="imV-Xz-j0c" firstAttribute="top" secondItem="Qwe-UH-fri" secondAttribute="top" id="gX2-sM-bLF"/>

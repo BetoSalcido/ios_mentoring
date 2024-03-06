@@ -59,5 +59,21 @@ extension TourCell: CellViewModelConfigurable {
             .assign(to: \.text, on: reviewLabel)
             .store(in: &bindings)
         
+        viewModel.$isFavoriteButtonSelected
+            .sink { [favoriteImage] in
+                let image = UIImage(named: "Favorite")
+                favoriteImage?.image = UIImage(named: "Favorite")
+                favoriteImage?.tintColor = $0 ? .red : .lightGray
+            }
+            .store(in: &bindings)
+        
+    }
+}
+
+// MARK: - Actions
+private extension TourCell {
+    
+    @IBAction func didTapFavoriteButton(_ sender: Any) {
+        viewModel.handleFavoriteSelection()
     }
 }

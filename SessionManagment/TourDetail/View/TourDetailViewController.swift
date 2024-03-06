@@ -76,6 +76,21 @@ private extension TourDetailViewController {
                 descriptionLabel?.numberOfLines = $0 ?? 4
             }
             .store(in: &bindings)
+        
+        viewModel.$isReadMoreButtonTapped
+            .sink { [readMoreButton] in
+                let imageName = $0 ? UIImage(named: "ArrowUp") : UIImage(named: "ArrowDown")
+                readMoreButton?.setImage(imageName, for: .normal)
+            }
+            .store(in: &bindings)
+        
+        viewModel.$isFavoriteButtonSelected
+            .sink { [favoriteImage] in
+                let image = UIImage(named: "Favorite")
+                favoriteImage?.image = UIImage(named: "Favorite")
+                favoriteImage?.tintColor = $0 ? .red : .lightGray
+            }
+            .store(in: &bindings)
     }
 }
 
@@ -92,6 +107,10 @@ private extension TourDetailViewController {
     
     @IBAction func didTapReadMoreButton(_ sender: Any) {
         viewModel.handleReadMoreSelection()
+    }
+    
+    @IBAction func didTapFavoriteButton(_ sender: Any) {
+        viewModel.handlerFavoriteButtonSelection()
     }
 }
 

@@ -18,6 +18,7 @@ class TourCellViewModel {
     /// Binding
     @Published private(set) var titleText: String?
     @Published private(set) var reviewText: String?
+    @Published private(set) var isFavoriteButtonSelected: Bool = false
     
     private let serviceProvider: ServiceProvider
     private let tour: Tour
@@ -36,7 +37,18 @@ private extension TourCellViewModel {
     
     func applyBindings() {
         titleText = tour.name
-        reviewText = "\(tour.reviews)"
+        reviewText = "\(tour.stars)"
+        validateFavorite()
+    }
+    
+    func validateFavorite() {
+        if let data = UserDefaults.standard.value(forKey: "favoritesArray") as? Data {
+            let favoriteArray: [Tour] = try! PropertyListDecoder().decode([Tour].self, from: data)
+            
+            isFavoriteButtonSelected = favoriteArray.contains(where: { element in
+                element.id == tour.id
+            })
+        }
     }
 }
 
@@ -45,6 +57,43 @@ extension TourCellViewModel {
     
     func handleSelection() {
         delegate?.viewModel(self, didSelectTour: tour)
+    }
+    
+    func handleFavoriteSelection() {
+        isFavoriteButtonSelected = !isFavoriteButtonSelected
+        
+        if let data = UserDefaults.standard.value(forKey: "favoritesArray") as? Data {
+            var favoriteArray: [Tour] = try! PropertyListDecoder().decode([Tour].self, from: data)
+        
+            if favoriteArray.isEmpty && isFavoriteButtonSelected {
+                UserDefaults.standard.setValue(try? PropertyListEncoder().encode([tour]), forKey: "favoritesArray")
+                
+            } else {
+                
+                if isFavoriteButtonSelected {
+                    let newArray = favoriteArray.filter {
+                        $0.id == tour.id
+                    }
+                    
+                    if newArray.isEmpty {
+                        favoriteArray.append(tour)
+                        UserDefaults.standard.setValue(try? PropertyListEncoder().encode(favoriteArray), forKey: "favoritesArray")
+                    }
+                    
+                } else {
+                    let newArray = favoriteArray.filter {
+                        $0.id != tour.id
+                    }
+            
+                    UserDefaults.standard.setValue(try? PropertyListEncoder().encode(newArray), forKey: "favoritesArray")
+                }
+            }
+        } else {
+            // If the array is nil and the button favorite selected, we must add the element.
+            if isFavoriteButtonSelected {
+                UserDefaults.standard.setValue(try? PropertyListEncoder().encode([tour]), forKey: "favoritesArray")
+            }
+        }
     }
 }
 

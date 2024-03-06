@@ -169,7 +169,7 @@
                                                                                 <rect key="frame" x="0.0" y="0.0" width="156" height="213"/>
                                                                             </imageView>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q8C-QB-lNN">
-                                                                                <rect key="frame" x="8" y="180" width="53" height="25"/>
+                                                                                <rect key="frame" x="8.0000000000000036" y="180" width="53.333333333333343" height="25"/>
                                                                                 <subviews>
                                                                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c4K-do-umn">
                                                                                         <rect key="frame" x="9" y="6.6666666666666572" width="35.333333333333336" height="12"/>
@@ -196,8 +196,9 @@
                                                                                 <constraints>
                                                                                     <constraint firstItem="c4K-do-umn" firstAttribute="centerY" secondItem="q8C-QB-lNN" secondAttribute="centerY" id="AiQ-H7-kn5"/>
                                                                                     <constraint firstAttribute="height" constant="25" id="MhW-K9-9g2"/>
+                                                                                    <constraint firstAttribute="trailing" secondItem="c4K-do-umn" secondAttribute="trailing" constant="9" id="ceF-YR-1tm"/>
                                                                                     <constraint firstItem="c4K-do-umn" firstAttribute="centerX" secondItem="q8C-QB-lNN" secondAttribute="centerX" id="gfT-pW-NAf"/>
-                                                                                    <constraint firstAttribute="width" constant="53" id="qRl-Sn-oTA"/>
+                                                                                    <constraint firstItem="c4K-do-umn" firstAttribute="leading" secondItem="q8C-QB-lNN" secondAttribute="leading" constant="9" id="mGK-vj-2Sa"/>
                                                                                 </constraints>
                                                                             </view>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oOD-0o-uND">
@@ -215,6 +216,9 @@
                                                                                         <rect key="frame" x="0.0" y="0.0" width="24" height="25"/>
                                                                                         <state key="normal" title="Button"/>
                                                                                         <buttonConfiguration key="configuration" style="plain"/>
+                                                                                        <connections>
+                                                                                            <action selector="didTapFavoriteButton:" destination="ma6-ic-SlR" eventType="touchUpInside" id="2kb-R2-DVd"/>
+                                                                                        </connections>
                                                                                     </button>
                                                                                 </subviews>
                                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>

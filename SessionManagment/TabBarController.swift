@@ -45,7 +45,7 @@ private extension TabBarController {
     func configureViewControllers() {
         viewControllers = [
             createTabBarController(with: makeHomeViewController(), image: UIImage(named: "Home")!),
-            createTabBarController(with: makeFavoriteViewController(), image: UIImage(named: "Heart")!),
+            createTabBarController(with: makeWishlistViewController(), image: UIImage(named: "Heart")!),
             createTabBarController(with: makeProfileViewController(), image: UIImage(named: "Profile")!)
         ]
     }
@@ -57,9 +57,9 @@ private extension TabBarController {
         return viewController
     }
     
-    func makeFavoriteViewController() -> UIViewController {
-        let viewModel = HomeViewModel(serviceProvider: serviceProvider)
-        let viewController = HomeViewController.instantiate()
+    func makeWishlistViewController() -> UIViewController {
+        let viewModel = WishlistViewModel(serviceProvider: serviceProvider)
+        let viewController = WishlistViewController.instantiate()
         viewController.viewModel = viewModel
         return viewController
     }

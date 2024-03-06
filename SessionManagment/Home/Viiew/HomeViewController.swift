@@ -44,7 +44,7 @@ private extension HomeViewController {
     }
     
     func runTourDetail(with  tour: Tour) {
-        let viewModel = TourDetailViewModel()
+        let viewModel = TourDetailViewModel(serviceProvider: viewModel.serviceProvider, tour: tour)
         let viewController = TourDetailViewController.instantiate()
         viewController.viewModel = viewModel
         navigationController?.pushViewController(viewController, animated: true)
