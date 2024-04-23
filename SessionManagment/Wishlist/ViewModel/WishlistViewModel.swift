@@ -8,26 +8,82 @@
 import Foundation
 
 protocol WishlistViewModelDelegate: AnyObject {
-    
+    func viewModel(_ viewModel: WishlistViewModel, didSelectTour tour: Tour)
 }
 
 class WishlistViewModel {
     
     /// Bindings
-    @Published private(set) var title: String?
+    @Published private(set) var isEmptyStateHidden: Bool = true
     
-    private let serviceProvider: ServiceProvider
+    private var cellViewModels = [WishlistCellViewModel]()
+    private(set) var serviceProvider: ServiceProvider
+    let reloadData = Command<Void>()
     weak var delegate: WishlistViewModelDelegate?
     
     init(serviceProvider: ServiceProvider) {
         self.serviceProvider = serviceProvider
-        self.applyBindings()
     }
 }
 
-// MARK: Private Methods
+// MARK: - Private Methods
 private extension WishlistViewModel {
     
-    func applyBindings() {}
+    func validateInformation() {
+        if let data = UserDefaults.standard.value(forKey: "favoritesArray") as? Data {
+            let favoriteArray: [Tour] = try! PropertyListDecoder().decode([Tour].self, from: data)
+            if !favoriteArray.isEmpty {
+                cellViewModels = favoriteArray.map({ tour in
+                    let cellViewModel = WishlistCellViewModel(serviceProvider: serviceProvider, tour: tour)
+                    cellViewModel.delegate = self
+                    return cellViewModel
+                })
+                
+                isEmptyStateHidden = true
+                reloadData.send()
+            } else {
+                isEmptyStateHidden = false
+            }
+        } else {
+            isEmptyStateHidden = false
+        }
+    }
 }
 
+// MARK: - Public Methods
+extension WishlistViewModel {
+    
+    var totalCellViewModels: Int {
+        return cellViewModels.count
+    }
+
+    func cellViewModel(at indexPath: IndexPath) -> CellViewModel? {
+        let rows = cellViewModels
+        let indexRow = indexPath.row
+        guard rows.indices.contains(indexRow) else {
+            return nil
+        }
+        
+        return rows[indexRow]
+    }
+}
+
+// MARK: - Handler Methods
+extension WishlistViewModel {
+    
+    func handleViewDidAppear() {
+        validateInformation()
+    }
+}
+
+// MARK: - WishlistCellViewModelDelegate
+extension WishlistViewModel: WishlistCellViewModelDelegate {
+    
+    func viewModelDidRequestReload(_ viewModel: WishlistCellViewModel) {
+        validateInformation()
+    }
+    
+    func viewModel(_ viewModel: WishlistCellViewModel, didSelectTour tour: Tour) {
+        delegate?.viewModel(self, didSelectTour: tour)
+    }
+}

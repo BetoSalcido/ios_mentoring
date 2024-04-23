@@ -44,9 +44,9 @@ private extension TabBarController {
     
     func configureViewControllers() {
         viewControllers = [
-            createTabBarController(with: makeHomeViewController(), image: UIImage(named: "Home")!),
-            createTabBarController(with: makeWishlistViewController(), image: UIImage(named: "Heart")!),
-            createTabBarController(with: makeProfileViewController(), image: UIImage(named: "Profile")!)
+            createTabBarController(with: makeHomeViewController(), title: "Home", image: UIImage(named: "Home")!),
+            createTabBarController(with: makeWishlistViewController(), title: "Wishlist", image: UIImage(named: "Heart")!),
+            createTabBarController(with: makeProfileViewController(), title: "Profile", image: UIImage(named: "Profile")!)
         ]
     }
     
@@ -72,12 +72,12 @@ private extension TabBarController {
     }
     
     func createTabBarController(with rootViewController: UIViewController,
+                                title: String,
                                 image: UIImage) -> UINavigationController {
         let navigationController = UINavigationController(rootViewController: rootViewController)
         navigationController.navigationBar.barTintColor = .white
         navigationController.tabBarItem.image = image
-        // NOTE: This is the code to add title to the tabBarItem
-        // navigationController.tabBarItem.title = ""
+        navigationController.tabBarItem.title = title
         navigationController.navigationBar.barStyle = .default
         return navigationController
     }

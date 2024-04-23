@@ -35,6 +35,8 @@
 		6969D8992B865C02000A97D8 /* RecommendationsCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6969D8982B865C02000A97D8 /* RecommendationsCellViewModel.swift */; };
 		6969D89B2B865C0E000A97D8 /* RecommendationsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6969D89A2B865C0E000A97D8 /* RecommendationsCell.swift */; };
 		6969D89D2B865C1C000A97D8 /* RecommendedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6969D89C2B865C1C000A97D8 /* RecommendedCell.swift */; };
+		6970920E2BD8431A0065FD0C /* WishlistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6970920D2BD8431A0065FD0C /* WishlistCell.swift */; };
+		697092102BD843240065FD0C /* WishlistCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6970920F2BD843240065FD0C /* WishlistCellViewModel.swift */; };
 		698AE5752B6B19CF00BCF503 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 698AE5742B6B19CF00BCF503 /* Lottie */; };
 		698AE5782B6B1B7D00BCF503 /* Loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 698AE5772B6B1B7D00BCF503 /* Loading.json */; };
 		698AE57B2B6B1BB200BCF503 /* AnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698AE57A2B6B1BB200BCF503 /* AnimationViewController.swift */; };
@@ -88,6 +90,8 @@
 		6969D8982B865C02000A97D8 /* RecommendationsCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsCellViewModel.swift; sourceTree = "<group>"; };
 		6969D89A2B865C0E000A97D8 /* RecommendationsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsCell.swift; sourceTree = "<group>"; };
 		6969D89C2B865C1C000A97D8 /* RecommendedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedCell.swift; sourceTree = "<group>"; };
+		6970920D2BD8431A0065FD0C /* WishlistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistCell.swift; sourceTree = "<group>"; };
+		6970920F2BD843240065FD0C /* WishlistCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistCellViewModel.swift; sourceTree = "<group>"; };
 		698AE5772B6B1B7D00BCF503 /* Loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Loading.json; sourceTree = "<group>"; };
 		698AE57A2B6B1BB200BCF503 /* AnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationViewController.swift; sourceTree = "<group>"; };
 		698C09A32B98DC7C0086BE03 /* WishlistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistViewModel.swift; sourceTree = "<group>"; };
@@ -343,6 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				698C09A32B98DC7C0086BE03 /* WishlistViewModel.swift */,
+				6970920F2BD843240065FD0C /* WishlistCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -352,6 +357,7 @@
 			children = (
 				698C09A52B98DC880086BE03 /* WishlistViewController.swift */,
 				698C09A72B98DC930086BE03 /* Wishlist.storyboard */,
+				6970920D2BD8431A0065FD0C /* WishlistCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -494,12 +500,14 @@
 				695480712B0E958B003611F7 /* HomeViewModel.swift in Sources */,
 				69983E7F2B8669610051AE72 /* TourDetailViewController.swift in Sources */,
 				6952D4912B7FF85100DA5728 /* ToursCell.swift in Sources */,
+				6970920E2BD8431A0065FD0C /* WishlistCell.swift in Sources */,
 				6969D89B2B865C0E000A97D8 /* RecommendationsCell.swift in Sources */,
 				6969D8972B865BE4000A97D8 /* RecommendedCellViewModel.swift in Sources */,
 				6954806F2B0E9582003611F7 /* LoginViewModel.swift in Sources */,
 				69D8D05B2B7BD10F00328477 /* UIColor+App.swift in Sources */,
 				695480752B0E9676003611F7 /* ServiceProvider.swift in Sources */,
 				6952D4932B7FF86C00DA5728 /* TourCell.swift in Sources */,
+				697092102BD843240065FD0C /* WishlistCellViewModel.swift in Sources */,
 				69FFA9942B05733F00671351 /* UIViewController+App.swift in Sources */,
 				6954807F2B0E9F7D003611F7 /* Credentials.swift in Sources */,
 				69D8D0692B7BD9FD00328477 /* CategoriesCellViewModel.swift in Sources */,

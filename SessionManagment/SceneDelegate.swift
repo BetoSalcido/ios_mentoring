@@ -66,6 +66,10 @@ extension SceneDelegate {
             runLoginView()
         }
     }
+    
+    func selectTabBarItem(withIndex index: Int) {
+        tabBarController.selectedIndex = index
+    }
 }
 
 // MARK: - Private Methods

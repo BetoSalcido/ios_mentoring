@@ -21,6 +21,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Home"
         /// Validation to make sure that the viewModel is added to the viewController.
         guard viewModel != nil else {
             assertionFailure("`viewModel` is required for \(Self.self) to work.")
