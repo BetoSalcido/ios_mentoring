@@ -65,8 +65,8 @@ private extension TabBarController {
     }
     
     func makeProfileViewController() -> UIViewController {
-        let viewModel = HomeViewModel(serviceProvider: serviceProvider)
-        let viewController = HomeViewController.instantiate()
+        let viewModel = ProfileViewModel(serviceProvider: serviceProvider)
+        let viewController = ProfileViewController.instantiate()
         viewController.viewModel = viewModel
         return viewController
     }

@@ -11,7 +11,7 @@ class NetworkingService {
     
     func performLogin(with credentials: Credentials, completion: @escaping (Bool) -> Void) {
         
-        if credentials.user == "ls0523" && credentials.password == "12345" {
+        if credentials.email == "ls0523@dexcom.com" && credentials.password == "12345" {
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
                 completion(true)

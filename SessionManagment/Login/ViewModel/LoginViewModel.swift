@@ -25,7 +25,7 @@ class LoginViewModel {
     
     weak var delegate: LoginViewModelDelegate?
     
-    private var username = ""
+    private var email = ""
     private var password = ""
     
     init(serviceProvider: ServiceProvider) {
@@ -38,12 +38,13 @@ private extension LoginViewModel {
     
     func performLogin() {
         delegate?.viewModelDisplayLoadingView(self)
-        let credentials = Credentials(user: username, password: password)
+        let credentials = Credentials(email: email, password: password)
         networkingService.performLogin(with: credentials) { [weak self]  result in
             guard let self else { return }
             self.delegate?.viewModelRemoveLoadingView(self)
             if result {
                 UserDefaults.standard.setValue(true, forKey: "isLogged")
+                UserDefaults.standard.setValue(email, forKey: "userEmail")
                 self.delegate?.viewModelSuccessfulSession(self)
             } else {
                 self.displayErrorAlert()
@@ -52,7 +53,7 @@ private extension LoginViewModel {
     }
     
     func validateForm() {
-        isPerformLoginButtonEnabled = username.count >= 5 && password.count >= 5
+        isPerformLoginButtonEnabled = email.count >= 0 && password.count >= 5
     }
     
     func displayErrorAlert() {
@@ -65,8 +66,8 @@ private extension LoginViewModel {
 // MARK: - Handler Methods
 extension LoginViewModel {
     
-    func handleDidEditUsernameField(_ text: String) {
-        username = text
+    func handleDidEditEmailField(_ text: String) {
+        email = text
         validateForm()
     }
     

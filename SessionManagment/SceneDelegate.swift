@@ -71,7 +71,7 @@ extension SceneDelegate {
         tabBarController.selectedIndex = index
     }
 }
-
+    
 // MARK: - Private Methods
 private extension SceneDelegate {
     

@@ -10,7 +10,7 @@ import UIKit
 class LoginViewController: UIViewController {
     
     @IBOutlet private var performLoginButton: UIButton!
-    @IBOutlet private var usernameTextField: UITextField!
+    @IBOutlet private var emailTextField: UITextField!
     @IBOutlet private var passwordTextField: UITextField!
     
     private lazy var animationViewController = AnimationViewController()
@@ -88,8 +88,8 @@ private extension LoginViewController {
     /// Método para detectar los cambios en los textFields
     @IBAction func didEditTextField(_ sender: UITextField) {
         switch sender {
-        case usernameTextField:
-            viewModel.handleDidEditUsernameField(sender.text ?? "")
+        case emailTextField:
+            viewModel.handleDidEditEmailField(sender.text ?? "")
         case passwordTextField:
             viewModel.handleDidEditPasswordField(sender.text ?? "")
         default:

@@ -8,6 +8,6 @@
 import Foundation
 
 struct Credentials {
-    let user: String
+    let email: String
     let password: String
 }
