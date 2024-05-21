@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class RecommendedCell: UICollectionViewCell {
     
@@ -48,6 +49,13 @@ extension RecommendedCell: CellViewModelConfigurable {
         
         viewModel.$descriptionText
             .assign(to: \.text, on: descriptionLabel)
+            .store(in: &bindings)
+        
+        viewModel.$imageURL
+            .sink { [backgroundImage] in
+                backgroundImage?.kf.setImage(with: $0, options: [.cacheOriginalImage, .transition(.fade(1))])
+                backgroundImage?.kf.indicatorType = .activity
+            }
             .store(in: &bindings)
     }
 }

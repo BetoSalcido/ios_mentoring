@@ -234,10 +234,10 @@
                                                                                 </constraints>
                                                                             </view>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kWi-sM-MNE">
-                                                                                <rect key="frame" x="8" y="147" width="89" height="25"/>
+                                                                                <rect key="frame" x="8" y="147" width="140" height="25"/>
                                                                                 <subviews>
-                                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alley Palace" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CqY-mu-cVF">
-                                                                                        <rect key="frame" x="8" y="5" width="73" height="15"/>
+                                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alley Palace" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CqY-mu-cVF">
+                                                                                        <rect key="frame" x="8" y="5" width="124" height="15"/>
                                                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         <nil key="highlightedColor"/>
@@ -249,7 +249,7 @@
                                                                                     <constraint firstAttribute="trailing" secondItem="CqY-mu-cVF" secondAttribute="trailing" constant="8" id="0yO-Ba-A7U"/>
                                                                                     <constraint firstAttribute="bottom" secondItem="CqY-mu-cVF" secondAttribute="bottom" constant="5" id="9eH-5i-hdR"/>
                                                                                     <constraint firstItem="CqY-mu-cVF" firstAttribute="top" secondItem="kWi-sM-MNE" secondAttribute="top" constant="5" id="S8k-3f-qlb"/>
-                                                                                    <constraint firstAttribute="height" constant="25" id="uT0-Oa-2Jw"/>
+                                                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="uT0-Oa-2Jw"/>
                                                                                 </constraints>
                                                                             </view>
                                                                         </subviews>
@@ -260,6 +260,7 @@
                                                                             <constraint firstItem="9q3-cH-OCJ" firstAttribute="top" secondItem="I6C-Sv-lhO" secondAttribute="top" id="Jhq-67-acH"/>
                                                                             <constraint firstItem="q8C-QB-lNN" firstAttribute="leading" secondItem="I6C-Sv-lhO" secondAttribute="leading" constant="8" id="O36-lm-3kv"/>
                                                                             <constraint firstItem="q8C-QB-lNN" firstAttribute="top" secondItem="kWi-sM-MNE" secondAttribute="bottom" constant="8" symbolic="YES" id="Q84-oh-hFg"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="kWi-sM-MNE" secondAttribute="trailing" constant="8" id="SFL-02-dYn"/>
                                                                             <constraint firstAttribute="trailing" secondItem="9q3-cH-OCJ" secondAttribute="trailing" id="UbP-sQ-qwy"/>
                                                                             <constraint firstAttribute="bottom" secondItem="q8C-QB-lNN" secondAttribute="bottom" constant="8" id="l0h-zK-z8T"/>
                                                                             <constraint firstAttribute="bottom" secondItem="oOD-0o-uND" secondAttribute="bottom" constant="8" id="lvk-XO-hf2"/>

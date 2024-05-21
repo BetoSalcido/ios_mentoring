@@ -18,13 +18,14 @@ class RecommendedCellViewModel {
     /// Binding
     @Published private(set) var titleText: String?
     @Published private(set) var descriptionText: String?
+    @Published private(set) var imageURL: URL?
     
     private let serviceProvider: ServiceProvider
-    private let tour: Tour
+    private let tour: NetworkingService.Tour
     weak var delegate: RecommendedCellViewModelDelegate?
     
     init(serviceProvider: ServiceProvider,
-         tour: Tour) {
+         tour: NetworkingService.Tour) {
         self.serviceProvider = serviceProvider
         self.tour = tour
         applyBindings()
@@ -36,7 +37,8 @@ private extension RecommendedCellViewModel {
     
     func applyBindings() {
         titleText = tour.name
-        descriptionText = tour.shortDescription
+        descriptionText = tour.description
+        imageURL = URL(string: tour.imageURL)
     }
 }
 

@@ -21,14 +21,14 @@ class RecommendationsCellViewModel {
     
     private let serviceProvider: ServiceProvider
     private var cellViewModels = [RecommendedCellViewModel]()
-    private let tours: [Tour]
+    private let tours: [NetworkingService.Tour]
     
     let reloadData = Command<Void>()
     
     weak var delegate: ToursCellViewModelDelegate?
     
     init(serviceProvider: ServiceProvider,
-         tours: [Tour]) {
+         tours: [NetworkingService.Tour]) {
         self.serviceProvider = serviceProvider
         self.tours = tours
         applyBindings()

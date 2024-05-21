@@ -8,7 +8,9 @@
 import Foundation
  
 protocol HomeViewModelDelegate: AnyObject {
-    func viewModel(_ viewModel: HomeViewModel, didSelectTour tour: Tour)
+    func viewModel(_ viewModel: HomeViewModel, didSelectTour tour: NetworkingService.Tour)
+    func viewModelDisplayLoadingView(_ viewModel: HomeViewModel)
+    func viewModelRemoveLoadingView(_ viewModel: HomeViewModel)
 }
 
 class HomeViewModel {
@@ -31,6 +33,7 @@ class HomeViewModel {
     /// Bindings
     @Published private(set) var title: String?
     
+    private lazy var networkRepository = serviceProvider.networkRepository
     private(set) var serviceProvider: ServiceProvider
     private var sections = [Section]()
     let reloadData = Command<Void>()
@@ -45,7 +48,24 @@ class HomeViewModel {
 // MARK: Private Methods
 private extension HomeViewModel {
     
-    func generataCellViewModels() {
+    func generateCellViewModels(with data: [NetworkingService.Tour]) {
+        
+        var tours = [NetworkingService.Tour]()
+        var destinations = [NetworkingService.Tour]()
+        var restaurants = [NetworkingService.Tour]()
+        
+        for element in data {
+            switch element.type.lowercased() {
+            case Self.tour:
+                tours.append(element)
+            case Self.destination:
+                destinations.append(element)
+            case Self.restaurant:
+                restaurants.append(element)
+            default:
+                print("An unexpected value was found: \(element.type)")
+            }
+        }
         
         let categories: [Category] = [
             Category(id: "1", title: "Location"),
@@ -53,24 +73,47 @@ private extension HomeViewModel {
             Category(id: "3", title: "Food"),
             Category(id: "4", title: "Adventure")
         ]
+        
         let categoryCellViewModel = CategoriesCellViewModel(serviceProvider: serviceProvider, categories: categories)
         let categorySection = Section(title: "Filters", buttonTitle: "", cellViewModel: categoryCellViewModel)
         
-        let popularCellViewModel = ToursCellViewModel(serviceProvider: serviceProvider, tours: Tour.tours)
-        popularCellViewModel.delegate = self
-        let popularSection = Section(title: "Popular", buttonTitle: "See All", cellViewModel: popularCellViewModel)
+        let destinationCellViewModel = ToursCellViewModel(serviceProvider: serviceProvider, tours: destinations, titleText: "Destinations", buttonText: "")
+        destinationCellViewModel.delegate = self
+        let destinationSection = Section(title: "", buttonTitle: "", cellViewModel: destinationCellViewModel)
         
-        let recommendedViewModel = RecommendationsCellViewModel(serviceProvider: serviceProvider, tours: Tour.tours)
-        let recommendedSection = Section(title: "Recommended", buttonTitle: "", cellViewModel: recommendedViewModel)
+        let tourCellViewModel = ToursCellViewModel(serviceProvider: serviceProvider, tours: tours, titleText: "Tours", buttonText: "See All")
+        tourCellViewModel.delegate = self
+        let tourSection = Section(title: "", buttonTitle: "", cellViewModel: tourCellViewModel)
         
-        let tomorrowViewModel = RecommendationsCellViewModel(serviceProvider: serviceProvider, tours: Tour.tours)
-        let tomorrowSectionSection = Section(title: "Recommended", buttonTitle: "", cellViewModel: tomorrowViewModel)
+        let restaurantViewModel = RecommendationsCellViewModel(serviceProvider: serviceProvider, tours: restaurants)
+        let restaurantSection = Section(title: "Restaurants", buttonTitle: "", cellViewModel: restaurantViewModel)
+        
         
         sections.append(categorySection)
-        sections.append(popularSection)
-        sections.append(recommendedSection)
-        sections.append(tomorrowSectionSection)
+        sections.append(destinationSection)
+        sections.append(tourSection)
+        sections.append(restaurantSection)
         reloadData.send()
+    }
+    
+    func requestTours() async {
+        DispatchQueue.main.async {
+            self.delegate?.viewModelDisplayLoadingView(self)
+        }
+        
+        do {
+            let data = try await networkRepository.fetchTours()
+            DispatchQueue.main.async {
+                self.delegate?.viewModelRemoveLoadingView(self)
+                self.generateCellViewModels(with: data)
+            }
+            
+        } catch  {
+            DispatchQueue.main.async {
+                self.delegate?.viewModelRemoveLoadingView(self)
+                print(error.localizedDescription)
+            }
+        }
     }
 }
 
@@ -109,7 +152,7 @@ extension HomeViewModel {
 // MARK: - ToursCellViewModelDelegate
 extension HomeViewModel: ToursCellViewModelDelegate {
     
-    func viewModel(_ viewModel: ToursCellViewModel, didSelectTour tour: Tour) {
+    func viewModel(_ viewModel: ToursCellViewModel, didSelectTour tour: NetworkingService.Tour) {
         delegate?.viewModel(self, didSelectTour: tour)
     }
 }
@@ -118,7 +161,15 @@ extension HomeViewModel: ToursCellViewModelDelegate {
 extension HomeViewModel {
     
     func handleViewDidLoad() {
-        generataCellViewModels()
+        Task {
+            await requestTours()
+        }
     }
 }
 
+// MARK: - Constants
+private extension HomeViewModel {
+    static let tour = "tour"
+    static let destination = "destination"
+    static let restaurant = "restaurant"
+}

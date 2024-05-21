@@ -10,7 +10,7 @@ import Combine
 import UIKit
 
 protocol ToursCellViewModelDelegate: AnyObject {
-    func viewModel(_ viewModel: ToursCellViewModel, didSelectTour tour: Tour)
+    func viewModel(_ viewModel: ToursCellViewModel, didSelectTour tour: NetworkingService.Tour)
 }
 
 class ToursCellViewModel {
@@ -21,28 +21,26 @@ class ToursCellViewModel {
     
     private let serviceProvider: ServiceProvider
     private var cellViewModels = [TourCellViewModel]()
-    private let tours: [Tour]
+    private let tours: [NetworkingService.Tour]
     
     let reloadData = Command<Void>()
     
     weak var delegate: ToursCellViewModelDelegate?
     
     init(serviceProvider: ServiceProvider,
-         tours: [Tour]) {
+         tours: [NetworkingService.Tour],
+         titleText: String,
+         buttonText: String) {
         self.serviceProvider = serviceProvider
         self.tours = tours
-        applyBindings()
+        self.titleText = titleText
+        self.buttonText = buttonText
         generateCellViewModels()
     }
 }
 
 // MARK: - Private Methods
 private extension ToursCellViewModel {
-    
-    func applyBindings() {
-        titleText = "Popular"
-        buttonText = "See All"
-    }
     
     func generateCellViewModels() {
         cellViewModels = tours.map({
@@ -75,7 +73,7 @@ extension ToursCellViewModel {
 // MARK: - TourCellViewModelDelegate
 extension ToursCellViewModel: TourCellViewModelDelegate {
     
-    func viewModel(_ viewModel: TourCellViewModel, didSelectTour tour: Tour) {
+    func viewModel(_ viewModel: TourCellViewModel, didSelectTour tour: NetworkingService.Tour) {
         delegate?.viewModel(self, didSelectTour: tour)
     }
 }

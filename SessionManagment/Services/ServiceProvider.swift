@@ -13,8 +13,11 @@ protocol ServiceProvider {
     /// Manages the alerts views
     var alertsService: AlertsService { get }
     
-    /// Manages the HTTP request
-    var networkingService: NetworkingService { get }
+    /// Manages the Login HTTP request
+    var networkService: NetworkService { get }
+    
+    /// Manages the All the HTTP request
+    var networkRepository: NetworkRepository { get}
 }
 
 class AppServiceProvider: ServiceProvider {
@@ -23,7 +26,11 @@ class AppServiceProvider: ServiceProvider {
         return AlertsService()
     }()
     
-    lazy var networkingService: NetworkingService = {
-        return NetworkingService()
+    lazy var networkService: NetworkService = {
+        return NetworkService()
     }()
+    
+    var networkRepository: NetworkRepository {
+        return NetworkRepository(networkingService: NetworkingService.APIClient())
+    }
 }

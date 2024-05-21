@@ -1,5 +1,5 @@
 //
-//  NetworkingService.swift
+//  NetworkService.swift
 //  SessionManagment
 //
 //  Created by Beto Salcido on 22/11/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class NetworkingService {
+class NetworkService {
     
     func performLogin(with credentials: Credentials, completion: @escaping (Bool) -> Void) {
         

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class TourCell: UICollectionViewCell {
     
@@ -61,9 +62,15 @@ extension TourCell: CellViewModelConfigurable {
         
         viewModel.$isFavoriteButtonSelected
             .sink { [favoriteImage] in
-                let image = UIImage(named: "Favorite")
                 favoriteImage?.image = UIImage(named: "Favorite")
                 favoriteImage?.tintColor = $0 ? .red : .lightGray
+            }
+            .store(in: &bindings)
+        
+        viewModel.$imageURL
+            .sink { [backgroundImage] in
+                backgroundImage?.kf.setImage(with: $0, options: [.cacheOriginalImage, .transition(.fade(1)), ])
+                backgroundImage?.kf.indicatorType = .activity
             }
             .store(in: &bindings)
         

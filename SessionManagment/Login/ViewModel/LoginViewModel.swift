@@ -19,7 +19,7 @@ class LoginViewModel {
     /// Bindings
     @Published private(set) var isPerformLoginButtonEnabled: Bool = false
     
-    private lazy var networkingService = serviceProvider.networkingService
+    private lazy var networkService = serviceProvider.networkService
     private(set) lazy var alertService = serviceProvider.alertsService
     private let serviceProvider: ServiceProvider
     
@@ -39,7 +39,7 @@ private extension LoginViewModel {
     func performLogin() {
         delegate?.viewModelDisplayLoadingView(self)
         let credentials = Credentials(email: email, password: password)
-        networkingService.performLogin(with: credentials) { [weak self]  result in
+        networkService.performLogin(with: credentials) { [weak self]  result in
             guard let self else { return }
             self.delegate?.viewModelRemoveLoadingView(self)
             if result {

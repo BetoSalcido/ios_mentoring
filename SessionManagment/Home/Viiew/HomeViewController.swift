@@ -11,6 +11,7 @@ class HomeViewController: UIViewController {
     
     @IBOutlet private var collectionView: UICollectionView!
     
+    private lazy var animationViewController = AnimationViewController()
     private var bindings = Bindings()
     
     var viewModel: HomeViewModel! {
@@ -49,6 +50,30 @@ private extension HomeViewController {
         let viewController = TourDetailViewController.instantiate()
         viewController.viewModel = viewModel
         navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    func displayAnimation() {
+        UIView.animate(withDuration: 0.6, animations: { [weak self] in
+            guard let self else { return }
+            self.animationViewController.view.alpha = 1.0
+        }) { [weak self] _ in
+            guard let self else { return }
+            addChild(self.animationViewController)
+            view.addSubview(self.animationViewController.view)
+            self.animationViewController.didMove(toParent: self)
+        }
+    }
+    
+    func removeAnimation() {
+        UIView.animate(withDuration: 0.6, animations: { [weak self] in
+            guard let self else { return }
+            self.animationViewController.view.alpha = 0.0
+        }) { [weak self] _ in
+            guard let self else { return }
+            self.animationViewController.willMove(toParent: nil)
+            self.animationViewController.view.removeFromSuperview()
+            self.animationViewController.removeFromParent()
+        }
     }
 }
 
@@ -103,9 +128,16 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - HomeViewModelDelegate
 extension HomeViewController: HomeViewModelDelegate {
+    func viewModelRemoveLoadingView(_ viewModel: HomeViewModel) {
+        removeAnimation()
+    }
     
-    func viewModel(_ viewModel: HomeViewModel, didSelectTour tour: Tour) {
-        runTourDetail(with: tour)
+    func viewModelDisplayLoadingView(_ viewModel: HomeViewModel) {
+        displayAnimation()
+    }
+    
+    func viewModel(_ viewModel: HomeViewModel, didSelectTour tour: NetworkingService.Tour) {
+//        runTourDetail(with: tour)
     }
 }
 
