@@ -10,7 +10,7 @@ import Combine
 import UIKit
 
 protocol WishlistCellViewModelDelegate: AnyObject {
-    func viewModel(_ viewModel: WishlistCellViewModel, didSelectTour tour: Tour)
+    func viewModel(_ viewModel: WishlistCellViewModel, didSelectTour tour: NetworkingService.Tour)
     func viewModelDidRequestReload(_ viewModel: WishlistCellViewModel)
 }
 
@@ -22,11 +22,12 @@ class WishlistCellViewModel {
     @Published private(set) var isFavoriteButtonSelected: Bool = false
     
     private let serviceProvider: ServiceProvider
-    private let tour: Tour
+    private lazy var userDefaultsService = serviceProvider.userDefaultsService
+    private let tour: NetworkingService.Tour
     weak var delegate: WishlistCellViewModelDelegate?
     
     init(serviceProvider: ServiceProvider,
-         tour: Tour) {
+         tour: NetworkingService.Tour) {
         self.serviceProvider = serviceProvider
         self.tour = tour
         applyBindings()
@@ -38,18 +39,12 @@ private extension WishlistCellViewModel {
     
     func applyBindings() {
         titleText = tour.name
-        reviewText = "\(tour.stars)"
+        reviewText = "\(tour.rating)"
         validateFavorite()
     }
     
     func validateFavorite() {
-        if let data = UserDefaults.standard.value(forKey: "favoritesArray") as? Data {
-            let favoriteArray: [Tour] = try! PropertyListDecoder().decode([Tour].self, from: data)
-            
-            isFavoriteButtonSelected = favoriteArray.contains(where: { element in
-                element.id == tour.id
-            })
-        }
+        isFavoriteButtonSelected = userDefaultsService.validateTour(tour: tour)
     }
 }
 
@@ -64,7 +59,7 @@ extension WishlistCellViewModel {
         isFavoriteButtonSelected = !isFavoriteButtonSelected
         
         if let data = UserDefaults.standard.value(forKey: "favoritesArray") as? Data {
-            var favoriteArray: [Tour] = try! PropertyListDecoder().decode([Tour].self, from: data)
+            var favoriteArray: [NetworkingService.Tour] = try! PropertyListDecoder().decode([NetworkingService.Tour].self, from: data)
         
             if favoriteArray.isEmpty && isFavoriteButtonSelected {
                 UserDefaults.standard.setValue(try? PropertyListEncoder().encode([tour]), forKey: "favoritesArray")

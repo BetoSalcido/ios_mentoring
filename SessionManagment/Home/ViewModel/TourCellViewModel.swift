@@ -22,6 +22,7 @@ class TourCellViewModel {
     @Published private(set) var isFavoriteButtonSelected: Bool = false
     
     private let serviceProvider: ServiceProvider
+    private lazy var userDefaultsService = serviceProvider.userDefaultsService
     private let tour: NetworkingService.Tour
     weak var delegate: TourCellViewModelDelegate?
     
@@ -44,13 +45,7 @@ private extension TourCellViewModel {
     }
     
     func validateFavorite() {
-        if let data = UserDefaults.standard.value(forKey: "favoritesArray") as? Data {
-            let favoriteArray: [Tour] = try! PropertyListDecoder().decode([Tour].self, from: data)
-            
-            isFavoriteButtonSelected = favoriteArray.contains(where: { element in
-                element.id == String(tour.id)
-            })
-        }
+        isFavoriteButtonSelected = userDefaultsService.validateTour(tour: tour)
     }
 }
 

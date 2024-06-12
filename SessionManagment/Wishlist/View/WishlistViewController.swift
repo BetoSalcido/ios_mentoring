@@ -105,7 +105,7 @@ extension WishlistViewController: UITableViewDelegate {
 // MARK: - WishlistViewModelDelegate
 extension WishlistViewController: WishlistViewModelDelegate {
     
-    func viewModel(_ viewModel: WishlistViewModel, didSelectTour tour: Tour) {
+    func viewModel(_ viewModel: WishlistViewModel, didSelectTour tour: NetworkingService.Tour) {
         let viewModel = TourDetailViewModel(serviceProvider: viewModel.serviceProvider, tour: tour)
         let viewController = TourDetailViewController.instantiate()
         viewController.viewModel = viewModel

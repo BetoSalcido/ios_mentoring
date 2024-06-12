@@ -6,10 +6,13 @@
 //
 
 import Foundation
+import Kingfisher
 import UIKit
 
 class TourDetailViewController: UIViewController {
     
+    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var ratingLabel: UILabel!
     @IBOutlet private var priceLabel: UILabel!
     @IBOutlet private var bookButton: UIButton!
     @IBOutlet private var backgroundImage: UIImageView!
@@ -67,6 +70,25 @@ private extension TourDetailViewController {
     }
     
     func configureBindings() {
+        viewModel.$titleText
+            .assign(to: \.text, on: titleLabel)
+            .store(in: &bindings)
+        
+        viewModel.$reviewText
+            .assign(to: \.text, on: ratingLabel)
+            .store(in: &bindings)
+        
+        viewModel.$priceText
+            .assign(to: \.text, on: priceLabel)
+            .store(in: &bindings)
+        
+        viewModel.$imageURL
+            .sink { [backgroundImage] in
+                backgroundImage?.kf.setImage(with: $0, options: [.cacheOriginalImage, .transition(.fade(1)), ])
+                backgroundImage?.kf.indicatorType = .activity
+            }
+            .store(in: &bindings)
+        
         viewModel.$descriptionText
             .assign(to: \.text, on: descriptionLabel)
             .store(in: &bindings)
@@ -86,7 +108,6 @@ private extension TourDetailViewController {
         
         viewModel.$isFavoriteButtonSelected
             .sink { [favoriteImage] in
-                let image = UIImage(named: "Favorite")
                 favoriteImage?.image = UIImage(named: "Favorite")
                 favoriteImage?.tintColor = $0 ? .red : .lightGray
             }

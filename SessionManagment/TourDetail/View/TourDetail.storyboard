@@ -403,7 +403,9 @@
                         <outlet property="internetView" destination="D0t-HD-OqA" id="wMp-Uu-jmw"/>
                         <outlet property="poolView" destination="GbE-KR-xEt" id="U0Z-eH-osR"/>
                         <outlet property="priceLabel" destination="aZa-tV-sZo" id="Ry5-OC-Ioj"/>
+                        <outlet property="ratingLabel" destination="Bzf-nD-qgd" id="HFX-u4-Zqf"/>
                         <outlet property="readMoreButton" destination="9yc-fg-akB" id="D5z-DT-jlH"/>
+                        <outlet property="titleLabel" destination="hx6-mc-5sj" id="zsl-qr-wRT"/>
                         <outlet property="tubView" destination="LEo-10-9TJ" id="P1n-AG-OON"/>
                     </connections>
                 </viewController>

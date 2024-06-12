@@ -45,7 +45,7 @@ private extension HomeViewController {
             .store(in: &bindings)
     }
     
-    func runTourDetail(with  tour: Tour) {
+    func runTourDetail(with  tour: NetworkingService.Tour) {
         let viewModel = TourDetailViewModel(serviceProvider: viewModel.serviceProvider, tour: tour)
         let viewController = TourDetailViewController.instantiate()
         viewController.viewModel = viewModel
@@ -137,7 +137,7 @@ extension HomeViewController: HomeViewModelDelegate {
     }
     
     func viewModel(_ viewModel: HomeViewModel, didSelectTour tour: NetworkingService.Tour) {
-//        runTourDetail(with: tour)
+        runTourDetail(with: tour)
     }
 }
 

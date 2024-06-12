@@ -58,6 +58,7 @@
 		69983E7B2B8669470051AE72 /* TourDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69983E7A2B8669470051AE72 /* TourDetail.storyboard */; };
 		69983E7D2B8669530051AE72 /* TourDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69983E7C2B8669530051AE72 /* TourDetailViewModel.swift */; };
 		69983E7F2B8669610051AE72 /* TourDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69983E7E2B8669610051AE72 /* TourDetailViewController.swift */; };
+		69BFF3472C1244A400EBF788 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BFF3462C1244A400EBF788 /* UserDefaultsService.swift */; };
 		69D612202BE0195300B5049E /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D6121F2BE0195300B5049E /* ProfileViewModel.swift */; };
 		69D612222BE0195E00B5049E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D612212BE0195E00B5049E /* ProfileViewController.swift */; };
 		69D612242BE0196600B5049E /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69D612232BE0196600B5049E /* Profile.storyboard */; };
@@ -126,6 +127,7 @@
 		69983E7A2B8669470051AE72 /* TourDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TourDetail.storyboard; sourceTree = "<group>"; };
 		69983E7C2B8669530051AE72 /* TourDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourDetailViewModel.swift; sourceTree = "<group>"; };
 		69983E7E2B8669610051AE72 /* TourDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourDetailViewController.swift; sourceTree = "<group>"; };
+		69BFF3462C1244A400EBF788 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		69D6121F2BE0195300B5049E /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		69D612212BE0195E00B5049E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		69D612232BE0196600B5049E /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 				695480742B0E9676003611F7 /* ServiceProvider.swift */,
 				695480772B0E96FF003611F7 /* AlersService.swift */,
 				6954807C2B0E9F56003611F7 /* NetworkService.swift */,
+				69BFF3462C1244A400EBF788 /* UserDefaultsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -603,6 +606,7 @@
 				69983E7D2B8669530051AE72 /* TourDetailViewModel.swift in Sources */,
 				695BE9082B73F6EE007093B9 /* OnboardingViewController.swift in Sources */,
 				6969D89D2B865C1C000A97D8 /* RecommendedCell.swift in Sources */,
+				69BFF3472C1244A400EBF788 /* UserDefaultsService.swift in Sources */,
 				695480712B0E958B003611F7 /* HomeViewModel.swift in Sources */,
 				69983E7F2B8669610051AE72 /* TourDetailViewController.swift in Sources */,
 				6952D4912B7FF85100DA5728 /* ToursCell.swift in Sources */,

@@ -18,6 +18,9 @@ protocol ServiceProvider {
     
     /// Manages the All the HTTP request
     var networkRepository: NetworkRepository { get}
+    
+    /// Manages the userDefaults values
+    var userDefaultsService: UserDefaultsService { get}
 }
 
 class AppServiceProvider: ServiceProvider {
@@ -28,6 +31,10 @@ class AppServiceProvider: ServiceProvider {
     
     lazy var networkService: NetworkService = {
         return NetworkService()
+    }()
+    
+    lazy var userDefaultsService: UserDefaultsService = {
+        return UserDefaultsService()
     }()
     
     var networkRepository: NetworkRepository {

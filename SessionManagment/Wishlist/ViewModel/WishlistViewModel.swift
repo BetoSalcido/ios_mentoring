@@ -8,7 +8,7 @@
 import Foundation
 
 protocol WishlistViewModelDelegate: AnyObject {
-    func viewModel(_ viewModel: WishlistViewModel, didSelectTour tour: Tour)
+    func viewModel(_ viewModel: WishlistViewModel, didSelectTour tour: NetworkingService.Tour)
 }
 
 class WishlistViewModel {
@@ -31,7 +31,7 @@ private extension WishlistViewModel {
     
     func validateInformation() {
         if let data = UserDefaults.standard.value(forKey: "favoritesArray") as? Data {
-            let favoriteArray: [Tour] = try! PropertyListDecoder().decode([Tour].self, from: data)
+            let favoriteArray: [NetworkingService.Tour] = try! PropertyListDecoder().decode([NetworkingService.Tour].self, from: data)
             if !favoriteArray.isEmpty {
                 cellViewModels = favoriteArray.map({ tour in
                     let cellViewModel = WishlistCellViewModel(serviceProvider: serviceProvider, tour: tour)
@@ -83,7 +83,7 @@ extension WishlistViewModel: WishlistCellViewModelDelegate {
         validateInformation()
     }
     
-    func viewModel(_ viewModel: WishlistCellViewModel, didSelectTour tour: Tour) {
+    func viewModel(_ viewModel: WishlistCellViewModel, didSelectTour tour: NetworkingService.Tour) {
         delegate?.viewModel(self, didSelectTour: tour)
     }
 }
