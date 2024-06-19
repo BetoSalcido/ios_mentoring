@@ -29,6 +29,7 @@ class HomeViewController: UIViewController {
             return
         }
         
+        configureView()
         configureBindings()
         viewModel.handleViewDidLoad()
     }
@@ -37,8 +38,13 @@ class HomeViewController: UIViewController {
 // MARK: - Private Extension
 private extension HomeViewController {
     
+    func configureView() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDidRequestReload(notification:)), name: Notification.Name("didRequestReload"), object: nil)
+    }
+    
     func configureBindings() {
         viewModel.reloadData
+            .receive(on: DispatchQueue.main)
             .sink { [collectionView] in
                 collectionView?.reloadData()
             }
@@ -75,6 +81,13 @@ private extension HomeViewController {
             self.animationViewController.removeFromParent()
         }
     }
+}
+
+// MARK: - Actions
+private extension HomeViewController {
+    @objc func handleDidRequestReload(notification: Notification) {
+        viewModel.handleReloadRequest()
+     }
 }
 
 // MARK: - UICollectionViewDataSource

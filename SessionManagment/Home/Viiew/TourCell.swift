@@ -61,8 +61,10 @@ extension TourCell: CellViewModelConfigurable {
             .store(in: &bindings)
         
         viewModel.$isFavoriteButtonSelected
+            .receive(on: RunLoop.main)
             .sink { [favoriteImage] in
                 favoriteImage?.image = UIImage(named: "Favorite")
+                print("isSelected: \($0)")
                 favoriteImage?.tintColor = $0 ? .red : .lightGray
             }
             .store(in: &bindings)

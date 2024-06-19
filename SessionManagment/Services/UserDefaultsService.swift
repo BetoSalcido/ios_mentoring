@@ -23,54 +23,36 @@ class UserDefaultsService {
         return try! PropertyListDecoder().decode([NetworkingService.Tour].self, from: data)
     }
     
-//    func asdas() {
-//        if let data = UserDefaults.standard.value(forKey: "favoritesArray") as? Data {
-//            var favoriteArray: [NetworkingService.Tour] = try! PropertyListDecoder().decode([NetworkingService.Tour].self, from: data)
-//        
-//            if favoriteArray.isEmpty && isFavoriteButtonSelected {
-//                UserDefaults.standard.setValue(try? PropertyListEncoder().encode([tour]), forKey: "favoritesArray")
-//                
-//            } else {
-//                
-//                if isFavoriteButtonSelected {
-//                    let newArray = favoriteArray.filter {
-//                        $0.id == tour.id
-//                    }
-//                    
-//                    if newArray.isEmpty {
-//                        favoriteArray.append(tour)
-//                        UserDefaults.standard.setValue(try? PropertyListEncoder().encode(favoriteArray), forKey: "favoritesArray")
-//                    }
-//                    
-//                } else {
-//                    let newArray = favoriteArray.filter {
-//                        $0.id != tour.id
-//                    }
-//            
-//                    UserDefaults.standard.setValue(try? PropertyListEncoder().encode(newArray), forKey: "favoritesArray")
-//                }
-//            }
-//        } else {
-//            // If the array is nil and the button favorite selected, we must add the element.
-////            if isFavoriteButtonSelected {
-////                UserDefaults.standard.setValue(try? PropertyListEncoder().encode([tour]), forKey: "favoritesArray")
-////            }
-//        }
-//    }
-    
     func addTour(tour: NetworkingService.Tour) {
-        userDefaults.setValue(try? PropertyListEncoder().encode([tour]), forKey: Self.favorites)
+        if tours.isEmpty {
+            userDefaults.setValue(try? PropertyListEncoder().encode([tour]), forKey: Self.favorites)
+        } else {
+            // This validation valid that the tour does not exist in the userDefaults.
+            let filterTour = tours.filter {
+                $0.id == tour.id
+            }
+            
+            if filterTour.isEmpty {
+                var savedTours = tours
+                savedTours.append(tour)
+                userDefaults.setValue(try? PropertyListEncoder().encode(savedTours), forKey: Self.favorites)
+            }
+        }
+        
     }
     
     func removeTour(tour: NetworkingService.Tour) {
-        
+        let savedTours = tours.filter {
+            $0.id != tour.id
+        }
+
+        userDefaults.setValue(try? PropertyListEncoder().encode(savedTours), forKey: Self.favorites)
     }
     
     func validateTour(tour: NetworkingService.Tour) -> Bool {
         return tours.contains(where: { element in
             element.id == tour.id
         })
-        
     }
 }
 

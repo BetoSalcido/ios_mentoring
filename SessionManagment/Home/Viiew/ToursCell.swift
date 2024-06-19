@@ -92,6 +92,7 @@ extension ToursCell: CellViewModelConfigurable {
             .store(in: &bindings)
         
         viewModel.reloadData
+            .receive(on: DispatchQueue.main)
             .sink { [collectionView]  in
                 collectionView?.reloadData()
             }

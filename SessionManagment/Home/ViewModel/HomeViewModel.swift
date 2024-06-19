@@ -33,8 +33,10 @@ class HomeViewModel {
     /// Bindings
     @Published private(set) var title: String?
     
+    private lazy var userDefaultsService = serviceProvider.userDefaultsService
     private lazy var networkRepository = serviceProvider.networkRepository
     private(set) var serviceProvider: ServiceProvider
+    private var tours = [NetworkingService.Tour]()
     private var sections = [Section]()
     let reloadData = Command<Void>()
     
@@ -49,7 +51,6 @@ class HomeViewModel {
 private extension HomeViewModel {
     
     func generateCellViewModels(with data: [NetworkingService.Tour]) {
-        
         var tours = [NetworkingService.Tour]()
         var destinations = [NetworkingService.Tour]()
         var restaurants = [NetworkingService.Tour]()
@@ -103,6 +104,7 @@ private extension HomeViewModel {
         
         do {
             let data = try await networkRepository.fetchTours()
+            self.tours = data
             DispatchQueue.main.async {
                 self.delegate?.viewModelRemoveLoadingView(self)
                 self.generateCellViewModels(with: data)
@@ -164,6 +166,11 @@ extension HomeViewModel {
         Task {
             await requestTours()
         }
+    }
+    
+    func handleReloadRequest() {
+        sections.removeAll()
+        generateCellViewModels(with: tours)
     }
 }
 

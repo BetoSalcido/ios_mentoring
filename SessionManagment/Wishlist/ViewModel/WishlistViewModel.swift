@@ -16,9 +16,13 @@ class WishlistViewModel {
     /// Bindings
     @Published private(set) var isEmptyStateHidden: Bool = true
     
+    private lazy var userDefaultsService = serviceProvider.userDefaultsService
     private var cellViewModels = [WishlistCellViewModel]()
+    private(set) lazy var savedTours = userDefaultsService.tours
     private(set) var serviceProvider: ServiceProvider
+    
     let reloadData = Command<Void>()
+    
     weak var delegate: WishlistViewModelDelegate?
     
     init(serviceProvider: ServiceProvider) {
@@ -30,20 +34,17 @@ class WishlistViewModel {
 private extension WishlistViewModel {
     
     func validateInformation() {
-        if let data = UserDefaults.standard.value(forKey: "favoritesArray") as? Data {
-            let favoriteArray: [NetworkingService.Tour] = try! PropertyListDecoder().decode([NetworkingService.Tour].self, from: data)
-            if !favoriteArray.isEmpty {
-                cellViewModels = favoriteArray.map({ tour in
-                    let cellViewModel = WishlistCellViewModel(serviceProvider: serviceProvider, tour: tour)
-                    cellViewModel.delegate = self
-                    return cellViewModel
-                })
-                
-                isEmptyStateHidden = true
-                reloadData.send()
-            } else {
-                isEmptyStateHidden = false
-            }
+        let tours = userDefaultsService.tours
+        
+        if !tours.isEmpty {
+            cellViewModels = tours.map({ tour in
+                let cellViewModel = WishlistCellViewModel(serviceProvider: serviceProvider, tour: tour)
+                cellViewModel.delegate = self
+                return cellViewModel
+            })
+            
+            isEmptyStateHidden = true
+            reloadData.send()
         } else {
             isEmptyStateHidden = false
         }

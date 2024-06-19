@@ -21,9 +21,10 @@ class WishlistCellViewModel {
     @Published private(set) var reviewText: String?
     @Published private(set) var isFavoriteButtonSelected: Bool = false
     
-    private let serviceProvider: ServiceProvider
     private lazy var userDefaultsService = serviceProvider.userDefaultsService
+    private let serviceProvider: ServiceProvider
     private let tour: NetworkingService.Tour
+    
     weak var delegate: WishlistCellViewModelDelegate?
     
     init(serviceProvider: ServiceProvider,
@@ -56,39 +57,15 @@ extension WishlistCellViewModel {
     }
     
     func handleFavoriteSelection() {
-        isFavoriteButtonSelected = !isFavoriteButtonSelected
-        
-        if let data = UserDefaults.standard.value(forKey: "favoritesArray") as? Data {
-            var favoriteArray: [NetworkingService.Tour] = try! PropertyListDecoder().decode([NetworkingService.Tour].self, from: data)
-        
-            if favoriteArray.isEmpty && isFavoriteButtonSelected {
-                UserDefaults.standard.setValue(try? PropertyListEncoder().encode([tour]), forKey: "favoritesArray")
-                
-            } else {
-                
-                if isFavoriteButtonSelected {
-                    let newArray = favoriteArray.filter {
-                        $0.id == tour.id
-                    }
-                    
-                    if newArray.isEmpty {
-                        favoriteArray.append(tour)
-                        UserDefaults.standard.setValue(try? PropertyListEncoder().encode(favoriteArray), forKey: "favoritesArray")
-                    }
-                    
-                } else {
-                    let newArray = favoriteArray.filter {
-                        $0.id != tour.id
-                    }
-            
-                    UserDefaults.standard.setValue(try? PropertyListEncoder().encode(newArray), forKey: "favoritesArray")
-                }
+        if isFavoriteButtonSelected {
+            isFavoriteButtonSelected = false
+            userDefaultsService.removeTour(tour: tour)
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: Notification.Name("didRequestReload"), object: nil)
             }
         } else {
-            // If the array is nil and the button favorite selected, we must add the element.
-            if isFavoriteButtonSelected {
-                UserDefaults.standard.setValue(try? PropertyListEncoder().encode([tour]), forKey: "favoritesArray")
-            }
+            isFavoriteButtonSelected = true
+            
         }
         
         delegate?.viewModelDidRequestReload(self)
