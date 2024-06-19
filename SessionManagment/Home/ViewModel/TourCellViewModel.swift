@@ -45,7 +45,7 @@ private extension TourCellViewModel {
     }
     
     func validateFavorite() {
-        isFavoriteButtonSelected = false //userDefaultsService.validateTour(tour: tour)
+        isFavoriteButtonSelected = userDefaultsService.validateTour(tour: tour)
     }
 }
 
