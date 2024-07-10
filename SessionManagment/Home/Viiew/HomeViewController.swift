@@ -2,7 +2,7 @@
 //  HomeViewController.swift
 //  SessionManagment
 //
-//  Created by Beto Salcido on 15/11/23.
+
 //
 
 import UIKit
@@ -39,14 +39,14 @@ class HomeViewController: UIViewController {
 private extension HomeViewController {
     
     func configureView() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleDidRequestReload(notification:)), name: Notification.Name("didRequestReload"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDidRequestReload), name: Notification.Name("didRequestReload"), object: nil)
     }
     
     func configureBindings() {
         viewModel.reloadData
-            .receive(on: DispatchQueue.main)
-            .sink { [collectionView] in
-                collectionView?.reloadData()
+            .sink { [weak self] in
+                guard let self else { return }
+                self.collectionView?.reloadData()
             }
             .store(in: &bindings)
     }

@@ -6,8 +6,7 @@
 //
 
 import Foundation
- import Combine
-
+ 
 protocol HomeViewModelDelegate: AnyObject {
     func viewModel(_ viewModel: HomeViewModel, didSelectTour tour: NetworkingService.Tour)
     func viewModelDisplayLoadingView(_ viewModel: HomeViewModel)
@@ -39,7 +38,7 @@ class HomeViewModel {
     private(set) var serviceProvider: ServiceProvider
     private var tours = [NetworkingService.Tour]()
     private var sections = [Section]()
-    let reloadData = PassthroughSubject<Void, Never>()
+    let reloadData = Command<Void>()
     
     weak var delegate: HomeViewModelDelegate?
     
@@ -105,8 +104,8 @@ private extension HomeViewModel {
         
         do {
             let data = try await networkRepository.fetchTours()
+            self.tours = data
             DispatchQueue.main.async {
-                self.tours = data
                 self.delegate?.viewModelRemoveLoadingView(self)
                 self.generateCellViewModels(with: data)
             }

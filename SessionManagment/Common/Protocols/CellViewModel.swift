@@ -2,7 +2,7 @@
 //  CellViewModel.swift
 //  SessionManagment
 //
-//  Created by Beto Salcido on 13/02/24.
+
 //
 
 import Foundation

@@ -19,6 +19,7 @@ class WishlistCellViewModel {
     /// Binding
     @Published private(set) var titleText: String?
     @Published private(set) var reviewText: String?
+    @Published private(set) var imageURL: URL?
     @Published private(set) var isFavoriteButtonSelected: Bool = false
     
     private lazy var userDefaultsService = serviceProvider.userDefaultsService
@@ -41,6 +42,7 @@ private extension WishlistCellViewModel {
     func applyBindings() {
         titleText = tour.name
         reviewText = "\(tour.rating)"
+        imageURL = URL(string: tour.imageURL)
         validateFavorite()
     }
     

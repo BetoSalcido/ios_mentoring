@@ -23,7 +23,7 @@ class ToursCellViewModel {
     private var cellViewModels = [TourCellViewModel]()
     private let tours: [NetworkingService.Tour]
     
-    let reloadData = PassthroughSubject<Void, Never>()
+    let reloadData = Command<Void>()
     
     weak var delegate: ToursCellViewModelDelegate?
     

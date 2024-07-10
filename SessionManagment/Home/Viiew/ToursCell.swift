@@ -2,7 +2,7 @@
 //  ToursCell.swift
 //  SessionManagment
 //
-//  Created by Beto Salcido on 16/02/24.
+
 //
 
 import Foundation
@@ -14,8 +14,13 @@ class ToursCell: UICollectionViewCell {
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var seeAllButton: UIButton!
     
+    private var viewModel: ToursCellViewModel! {
+        didSet {
+            configureBindings()
+        }
+    }
+    
     private var bindings = Bindings()
-    private var viewModel: ToursCellViewModel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -70,17 +75,10 @@ extension ToursCell: UICollectionViewDelegateFlowLayout {
 }
 
 
-// MARK: - CellViewModelConfigurable
-extension ToursCell: CellViewModelConfigurable {
+// MARK: - Private Methods
+private extension ToursCell {
     
-    func configure(cellViewModel: CellViewModel) {
-        guard let cellViewModel = cellViewModel as? ToursCellViewModel else {
-            return
-        }
-        
-        self.viewModel = cellViewModel;
-        bindings.removeAll()
-        
+    func configureBindings() {
         viewModel.$titleText
             .assign(to: \.text, on: titleLabel)
             .store(in: &bindings)
@@ -92,11 +90,23 @@ extension ToursCell: CellViewModelConfigurable {
             .store(in: &bindings)
         
         viewModel.reloadData
-            .receive(on: DispatchQueue.main)
-            .sink { [collectionView]  in
-                collectionView?.reloadData()
+            .sink { [weak self] in
+                guard let self else { return }
+                self.collectionView?.reloadData()
             }
             .store(in: &bindings)
+    }
+}
+
+// MARK: - CellViewModelConfigurable
+extension ToursCell: CellViewModelConfigurable {
+    
+    func configure(cellViewModel: CellViewModel) {
+        guard let cellViewModel = cellViewModel as? ToursCellViewModel else {
+            return
+        }
         
+        bindings.removeAll()
+        self.viewModel = cellViewModel;
     }
 }

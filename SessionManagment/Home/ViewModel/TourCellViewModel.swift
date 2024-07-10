@@ -31,6 +31,7 @@ class TourCellViewModel {
         self.serviceProvider = serviceProvider
         self.tour = tour
         applyBindings()
+        validateFavorite()
     }
 }
 
@@ -41,7 +42,6 @@ private extension TourCellViewModel {
         titleText = tour.name
         reviewText = "\(tour.rating)"
         imageURL = URL(string: tour.imageURL)
-        validateFavorite()
     }
     
     func validateFavorite() {
@@ -57,39 +57,12 @@ extension TourCellViewModel {
     }
     
     func handleFavoriteSelection() {
-        isFavoriteButtonSelected = !isFavoriteButtonSelected
-        
-        if let data = UserDefaults.standard.value(forKey: "favoritesArray") as? Data {
-            var favoriteArray: [NetworkingService.Tour] = try! PropertyListDecoder().decode([NetworkingService.Tour].self, from: data)
-        
-            if favoriteArray.isEmpty && isFavoriteButtonSelected {
-                UserDefaults.standard.setValue(try? PropertyListEncoder().encode([tour]), forKey: "favoritesArray")
-                
-            } else {
-                
-                if isFavoriteButtonSelected {
-                    let newArray = favoriteArray.filter {
-                        $0.id == tour.id
-                    }
-                    
-                    if newArray.isEmpty {
-                        favoriteArray.append(tour)
-                        UserDefaults.standard.setValue(try? PropertyListEncoder().encode(favoriteArray), forKey: "favoritesArray")
-                    }
-                    
-                } else {
-                    let newArray = favoriteArray.filter {
-                        $0.id != tour.id
-                    }
-            
-                    UserDefaults.standard.setValue(try? PropertyListEncoder().encode(newArray), forKey: "favoritesArray")
-                }
-            }
+        if isFavoriteButtonSelected {
+            userDefaultsService.removeTour(tour: tour)
+            isFavoriteButtonSelected = false
         } else {
-            // If the array is nil and the button favorite selected, we must add the element.
-            if isFavoriteButtonSelected {
-                UserDefaults.standard.setValue(try? PropertyListEncoder().encode([tour]), forKey: "favoritesArray")
-            }
+            userDefaultsService.addTour(tour: tour)
+            isFavoriteButtonSelected = true
         }
     }
 }
